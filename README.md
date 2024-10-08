@@ -61,5 +61,4 @@
 
 4. 일정
    
-   ![4](https://github.com/user-attachments/assets/dee6a906-2cce-44ef-86bd-edbf69b5f974)
-   
+   ![4](https://github.com/user-attachments/assets/0156253a-78d4-4bf1-8e5f-a09cc785931a)
