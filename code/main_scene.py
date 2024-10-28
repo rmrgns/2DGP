@@ -16,7 +16,7 @@ def enter():
     world.append(gfw.VertFillBackground('res/bg_city.png', -30), world.layer.bg)
     global fighter
     fighter = Fighter()
-    world.append(fighter, world.layer.fighter)
+    # world.append(fighter, world.layer.fighter)
     # world.append(MainScenUI(), world.layer.ui)
     global score_sprite
     score_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width - 50, canvas_height - 50)
@@ -41,6 +41,8 @@ def resume():
 def handle_event(e):
     if e.type == SDL_KEYDOWN and e.key == SDLK_1:
         print(world.objects)
+    if e.type == SDL_KEYDOWN and e.key == SDLK_s:
+        world.append(fighter, world.layer.fighter)
     fighter.handle_event(e)
 
 class CollisionChecker:
