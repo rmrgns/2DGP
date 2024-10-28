@@ -11,6 +11,8 @@ class Fighter(gfw.Sprite):
         (SDL_KEYDOWN, SDLK_UP): 1,
         (SDL_KEYUP, SDLK_DOWN): 1,
         (SDL_KEYUP, SDLK_UP): -1,
+        (SDL_KEYDOWN, SDLK_SPACE): 1,
+        (SDL_KEYUP, SDLK_SPACE): 0,
     }
     LASER_INTERVAL = 0.25
     SPARK_INTERVAL = 0.05
@@ -47,6 +49,7 @@ class Fighter(gfw.Sprite):
         self.spark_image = gfw.image.load('res/laser_0.png')
         self.roll_time = 0
         self.src_rect = Fighter.IMAGE_RECTS[5] # 0~10 의 11 개 중 5번이 가운데이다.
+        self.shot = 0
 
     def handle_event(self, e):
         pair = (e.type, e.key)
@@ -55,6 +58,8 @@ class Fighter(gfw.Sprite):
                 self.dx += Fighter.KEY_MAP[pair]
             elif e.key == SDLK_UP or e.key == SDLK_DOWN:
                 self.dy += Fighter.KEY_MAP[pair]
+            elif e.key == SDLK_SPACE:
+                self.shot = Fighter.KEY_MAP[pair]
                 pass
     def update(self):
         self.x += self.dx * self.speed * gfw.frame_time
@@ -63,7 +68,8 @@ class Fighter(gfw.Sprite):
         self.y = clamp(self.min_y, self.y, self.max_y)
         self.laser_time += gfw.frame_time
         if self.laser_time >= Fighter.LASER_INTERVAL:
-            self.fire()
+            if self.shot == 1:
+                self.fire()
         self.update_roll()
     def update_roll(self):
         roll_dir = self.dx
