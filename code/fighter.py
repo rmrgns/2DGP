@@ -7,6 +7,10 @@ class Fighter(gfw.Sprite):
         (SDL_KEYDOWN, SDLK_RIGHT):  1,
         (SDL_KEYUP, SDLK_LEFT):     1,
         (SDL_KEYUP, SDLK_RIGHT):   -1,
+        (SDL_KEYDOWN, SDLK_DOWN): -1,
+        (SDL_KEYDOWN, SDLK_UP): 1,
+        (SDL_KEYUP, SDLK_DOWN): 1,
+        (SDL_KEYUP, SDLK_UP): -1,
     }
     LASER_INTERVAL = 0.25
     SPARK_INTERVAL = 0.05
@@ -29,11 +33,16 @@ class Fighter(gfw.Sprite):
     def __init__(self):
         super().__init__('res/fighters.png', get_canvas_width() // 2, 80)
         self.dx = 0
+        self.dy = 0
         self.speed = 320 # 320 pixels per second
         self.width = 72
+        self.height = 200
         half_width = self.width // 2
+        half_height = self.height // 2
         self.min_x = half_width
         self.max_x = get_canvas_width() - half_width
+        self.min_y = half_height
+        self.max_y = get_canvas_height() - half_height
         self.laser_time = 0
         self.spark_image = gfw.image.load('res/laser_0.png')
         self.roll_time = 0
@@ -42,10 +51,16 @@ class Fighter(gfw.Sprite):
     def handle_event(self, e):
         pair = (e.type, e.key)
         if pair in Fighter.KEY_MAP:
-            self.dx += Fighter.KEY_MAP[pair]
+            if e.key == SDLK_LEFT or e.key == SDLK_RIGHT:
+                self.dx += Fighter.KEY_MAP[pair]
+            elif e.key == SDLK_UP or e.key == SDLK_DOWN:
+                self.dy += Fighter.KEY_MAP[pair]
+                pass
     def update(self):
         self.x += self.dx * self.speed * gfw.frame_time
+        self.y += self.dy * self.speed * gfw.frame_time
         self.x = clamp(self.min_x, self.x, self.max_x)
+        self.y = clamp(self.min_y, self.y, self.max_y)
         self.laser_time += gfw.frame_time
         if self.laser_time >= Fighter.LASER_INTERVAL:
             self.fire()
