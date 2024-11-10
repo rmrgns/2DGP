@@ -30,13 +30,13 @@ def enter():
 
 def exit():
     world.clear()
-    print('[main.exit()]')
+    print('[game.exit()]')
 
 def pause():
-    print('[main.pause()]')
+    print('[game.pause()]')
 
 def resume():
-    print('[main.resume()]')
+    print('[game.resume()]')
 
 def handle_event(e):
     if e.type == SDL_KEYDOWN and e.key == SDLK_1:
@@ -70,7 +70,7 @@ class CollisionChecker:
                 # decrease fighter HP here?
                 break
 
-class MainScenUI:
+class GameScenUI:
     def __init__(self):
         self.font = load_font('res/lucon.ttf', 50)
         self.pos = (canvas_width - 320, canvas_height - 40)
@@ -79,6 +79,6 @@ class MainScenUI:
         self.font.draw(*self.pos, f'{score:10d}')
 
 
-if __name__ == '__main__':
-    gfw.start_main_module()
+#if __name__ == '__main__':
+#    gfw.start_main_module()
 
