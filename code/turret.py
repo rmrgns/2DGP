@@ -9,7 +9,8 @@ class Turret(gfw.Sprite):
 
     def handle_event(self, e):
         if e.type == SDL_MOUSEBUTTONDOWN:
-            if self.is_clicked(self.x, self.y):
+            x, y = e.x, get_canvas_height() - e.y  # y 좌표 반전
+            if self.is_clicked(x, y):
                 print(f"Sprite at ({self.x}, {self.y}) clicked!")
 
 
