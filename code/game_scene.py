@@ -15,20 +15,27 @@ shows_bounding_box = True
 shows_object_count = True
 
 def enter():
-    global turret
-    turret = Turret(0,0)
+    global turrets
+    turrets = []
     for i in range(1,6):
-        world.append(gfw.Sprite('resources/build.png',i*100-50,200),world.layer.turret)
+        x,y = i*100-50, 200
+        turret = Turret(x,y)
+        turrets.append(turret)
+        world.append(turret,world.layer.turret)
     for i in range(1,6):
-        world.append(gfw.Sprite('resources/build.png',i*100-50,100),world.layer.turret)
-    center = world.append(gfw.Sprite('resources/center.png', 0, 0), world.layer.ui)
+        x, y = i * 100 - 50, 100
+        turret = Turret(x, y)
+        turrets.append(turret)
+        world.append(turret, world.layer.turret)
+
+    #center = world.append(gfw.Sprite('resources/center.png', 0, 0), world.layer.ui)
     world.append(gfw.VertFillBackground('res/clouds.png', -60), world.layer.bg)
     world.append(gfw.VertFillBackground('res/bg_city.png', -30), world.layer.bg)
 
     global fighter
     fighter = Fighter()
     # world.append(fighter, world.layer.fighter)
-    # world.append(MainScenUI(), world.layer.ui)
+    # world.append(MainSceneUI(), world.layer.ui)
     global score_sprite
     score_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width - 50, canvas_height - 50)
     world.append(score_sprite, world.layer.ui)
@@ -59,6 +66,8 @@ def handle_event(e):
     if e.type == SDL_KEYDOWN and e.key == SDLK_e:
         gfw.change(end_scene)
     fighter.handle_event(e)
+    for turret in turrets:
+        turret.handle_event(e)
 
 class CollisionChecker:
     def draw(self): pass
