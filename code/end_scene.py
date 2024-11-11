@@ -22,7 +22,7 @@ def resume():
 def handle_event(e):
     if e.type == SDL_KEYDOWN:
         print(world.objects)
-        gfw.start(main_scene)
+        gfw.change(main_scene)
 
 
 class CollisionChecker:

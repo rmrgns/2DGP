@@ -2,7 +2,7 @@ from pico2d import *
 import gfw
 import game_scene
 
-world = gfw.World(['bg', 'fighter', 'bullet', 'enemy', 'ui', 'controller'])
+world = gfw.World(['upgradebg'])
 canvas_width = 500
 canvas_height = 800
 
@@ -21,8 +21,7 @@ def resume():
 
 def handle_event(e):
     if e.type == SDL_KEYDOWN:
-        gfw.pop()
-        gfw.start(game_scene)
+        gfw.change(game_scene)
 
 
 class CollisionChecker:

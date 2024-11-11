@@ -46,10 +46,9 @@ def handle_event(e):
     if e.type == SDL_KEYDOWN and e.key == SDLK_s:
         world.append(fighter, world.layer.fighter)
     if e.type == SDL_KEYDOWN and e.key == SDLK_q:
-        gfw.pop()
-        gfw.start(upgrade_scene)
+        gfw.change(upgrade_scene)
     if e.type == SDL_KEYDOWN and e.key == SDLK_e:
-        gfw.start(end_scene)
+        gfw.change(end_scene)
     fighter.handle_event(e)
 
 class CollisionChecker:
