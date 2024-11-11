@@ -5,8 +5,9 @@ import end_scene
 
 from fighter import Fighter
 from enemy import EnemyGen
+from turret import Turret
 
-world = gfw.World(['bg', 'fighter', 'bullet', 'enemy', 'ui', 'controller'])
+world = gfw.World(['bg', 'fighter', 'bullet', 'enemy', 'ui', 'controller', 'turret'])
 
 canvas_width = 500
 canvas_height = 800
@@ -14,8 +15,16 @@ shows_bounding_box = True
 shows_object_count = True
 
 def enter():
+    global turret
+    turret = Turret(0,0)
+    for i in range(1,6):
+        world.append(gfw.Sprite('resources/build.png',i*100-50,200),world.layer.turret)
+    for i in range(1,6):
+        world.append(gfw.Sprite('resources/build.png',i*100-50,100),world.layer.turret)
+    center = world.append(gfw.Sprite('resources/center.png', 0, 0), world.layer.ui)
     world.append(gfw.VertFillBackground('res/clouds.png', -60), world.layer.bg)
     world.append(gfw.VertFillBackground('res/bg_city.png', -30), world.layer.bg)
+
     global fighter
     fighter = Fighter()
     # world.append(fighter, world.layer.fighter)
