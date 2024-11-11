@@ -1,5 +1,7 @@
 from pico2d import * 
 import gfw
+import upgrade_scene
+import end_scene
 
 from fighter import Fighter
 from enemy import EnemyGen
@@ -43,6 +45,11 @@ def handle_event(e):
         print(world.objects)
     if e.type == SDL_KEYDOWN and e.key == SDLK_s:
         world.append(fighter, world.layer.fighter)
+    if e.type == SDL_KEYDOWN and e.key == SDLK_q:
+        gfw.pop()
+        gfw.start(upgrade_scene)
+    if e.type == SDL_KEYDOWN and e.key == SDLK_e:
+        gfw.start(end_scene)
     fighter.handle_event(e)
 
 class CollisionChecker:
