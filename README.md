@@ -66,3 +66,8 @@
 4. 일정
    
    ![4](https://github.com/user-attachments/assets/0156253a-78d4-4bf1-8e5f-a09cc785931a)
+
+
+5. 진행상황
+
+   2주차: 씬변환 완료, 터렛 객체 생성까지 진행
