@@ -98,6 +98,13 @@ class CollisionChecker:
                         world.append(turret, world.layer.turret)
                         world.remove(t,world.layer.turret)
                         world.remove(e)
+                elif t.turret_type == 2:
+                    if gfw.collides_box(t,e):
+                        t.hp -= 1
+                        #turret = Turret(t.x, t.y)
+                        #world.append(turret, world.layer.turret)
+                        #world.remove(t,world.layer.turret)
+                        world.remove(e)
                 break
 
 class GameScenUI:

@@ -1,32 +1,29 @@
 from pico2d import *
 import gfw
-from gunturret import GunTurret
-from shieldturret import ShieldTurret
+
 import game_scene
 
-class Turret(gfw.Sprite):
+class ShieldTurret(gfw.Sprite):
     def __init__(self, x, y):
-        super().__init__('resources/build.png', x, y)
+        super().__init__('resources/shield.png', x, y)
         self.x, self.y = x,y
         self.width, self.height = self.image.w, self.image.h
-        self.turret_type = 0
+        self.hp = 10
+
+        self.turret_type = 2
     def handle_event(self, e):
         if e.type == SDL_MOUSEBUTTONDOWN:
             x, y = e.x, get_canvas_height() - e.y  # y 좌표 반전
             if self.is_clicked(x, y):
-                if e.button == SDL_BUTTON_LEFT:
-                    # 클릭시 터렛 설치
-                    self.build_GunTurret()
-                elif e.button == SDL_BUTTON_RIGHT:
-                    self.build_ShieldTurret()
+                self.RemoveTower()
+                pass
 
 
     def update(self):
         pass
 
     def draw(self):
-        self.image.draw(self.x, self.y)
-
+        self.image.draw(self.x, self.y,50,50)
         pass
 
     def is_clicked(self, x, y):
@@ -39,14 +36,7 @@ class Turret(gfw.Sprite):
         return (self.x - half_width, self.y - half_height,
                 self.x + half_width, self.y + half_height)
 
-    def build_GunTurret(self):
-        gun = GunTurret(self.x, self.y)
-        game_scene.world.append(gun, game_scene.world.layer.turret)
+    def RemoveTower(self):
+        newturret = game_scene.Turret(self.x, self.y)
+        game_scene.world.append(newturret, game_scene.world.layer.turret)
         game_scene.world.remove(self, game_scene.world.layer.turret)
-        pass
-
-    def build_ShieldTurret(self):
-        shield = ShieldTurret(self.x, self.y)
-        game_scene.world.append(shield, game_scene.world.layer.turret)
-        game_scene.world.remove(self, game_scene.world.layer.turret)
-        pass
