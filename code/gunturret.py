@@ -8,7 +8,7 @@ class GunTurret(gfw.Sprite):
     SPARK_INTERVAL = 0.05
     SPARK_OFFSET = 28
     def __init__(self, x, y):
-        super().__init__('resources/turret1.png', x, y)
+        super().__init__('resources/attack.png', x, y)
         self.x, self.y = x,y
         self.width, self.height = self.image.w, self.image.h
         self.hp = 100
