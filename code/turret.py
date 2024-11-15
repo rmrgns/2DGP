@@ -1,5 +1,7 @@
 from pico2d import *
 import gfw
+from gunturret import GunTurret
+import game_scene
 
 class Turret(gfw.Sprite):
     def __init__(self, x, y):
@@ -11,7 +13,9 @@ class Turret(gfw.Sprite):
         if e.type == SDL_MOUSEBUTTONDOWN:
             x, y = e.x, get_canvas_height() - e.y  # y 좌표 반전
             if self.is_clicked(x, y):
-                print(f"Sprite at ({self.x}, {self.y}) clicked!")
+                # 클릭시 터렛 설치
+                # print(f"Sprite at ({self.x}, {self.y}) clicked!")
+                self.build_GunTurret()
 
 
     def update(self):
@@ -31,3 +35,9 @@ class Turret(gfw.Sprite):
         half_height = self.height // 2
         return (self.x - half_width, self.y - half_height,
                 self.x + half_width, self.y + half_height)
+
+    def build_GunTurret(self):
+        gun = GunTurret(self.x, self.y)
+        game_scene.world.append(gun, game_scene.world.layer.turret)
+        game_scene.world.remove(self,game_scene.world.layer.turret)
+        pass
