@@ -1,6 +1,6 @@
 from pico2d import *
 import gfw
-import turret
+
 import game_scene
 
 class GunTurret(gfw.Sprite):
@@ -14,7 +14,8 @@ class GunTurret(gfw.Sprite):
         self.hp = 100
         self.laser_time = 0
         self.spark_image = gfw.image.load('res/laser_0.png')
-        self.shot = 1
+        self.shot = 0
+        self.turret_type = 1
     def handle_event(self, e):
         if e.type == SDL_MOUSEBUTTONDOWN:
             x, y = e.x, get_canvas_height() - e.y  # y 좌표 반전
@@ -31,7 +32,7 @@ class GunTurret(gfw.Sprite):
         pass
 
     def draw(self):
-        self.image.draw(self.x, self.y)
+        self.image.draw(self.x, self.y,50,50)
         if self.laser_time < GunTurret.SPARK_INTERVAL:
             self.spark_image.draw(self.x, self.y + GunTurret.SPARK_OFFSET)
         pass
@@ -51,7 +52,7 @@ class GunTurret(gfw.Sprite):
         world.append(Bullet(self.x, self.y), world.layer.bullet)
 
     def RemoveTower(self):
-        newturret = turret.Turret(self.x, self.y)
+        newturret = game_scene.Turret(self.x, self.y)
         game_scene.world.append(newturret, game_scene.world.layer.turret)
         game_scene.world.remove(self, game_scene.world.layer.turret)
 

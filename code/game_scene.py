@@ -15,17 +15,13 @@ shows_bounding_box = True
 shows_object_count = True
 
 def enter():
-    global turrets
-    turrets = []
-    for i in range(1,6):
+    for i in range(1,2):
         x,y = i*100-50, 200
         turret = Turret(x,y)
-        turrets.append(turret)
         world.append(turret,world.layer.turret)
-    for i in range(1,6):
+    for i in range(1,1):
         x, y = i * 100 - 50, 100
         turret = Turret(x, y)
-        turrets.append(turret)
         world.append(turret, world.layer.turret)
 
     #center = world.append(gfw.Sprite('resources/center.png', 0, 0), world.layer.ui)
@@ -66,8 +62,9 @@ def handle_event(e):
     if e.type == SDL_KEYDOWN and e.key == SDLK_e:
         gfw.change(end_scene)
     fighter.handle_event(e)
-    for turret in turrets:
-        turret.handle_event(e)
+    turrets = world.objects_at(world.layer.turret)
+    for t in turrets:
+        t.handle_event(e)
 
 class CollisionChecker:
     def draw(self): pass
@@ -92,6 +89,15 @@ class CollisionChecker:
             if gfw.collides_box(fighter, e):
                 world.remove(e)
                 # decrease fighter HP here?
+            turrets = world.objects_at(world.layer.turret)
+            for t in turrets:
+                if t.turret_type == 1:
+                    if gfw.collides_box(t,e):
+                        collided = True
+                        turret = Turret(t.x, t.y)
+                        world.append(turret, world.layer.turret)
+                        world.remove(t,world.layer.turret)
+                        world.remove(e)
                 break
 
 class GameScenUI:
