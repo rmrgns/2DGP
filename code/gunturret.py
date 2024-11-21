@@ -14,14 +14,23 @@ class GunTurret(gfw.Sprite):
         self.hp = 100
         self.laser_time = 0
         self.spark_image = gfw.image.load('res/laser_0.png')
-        self.shot = 0
+        self.shot = 1
         self.turret_type = 1
+
     def handle_event(self, e):
         if e.type == SDL_MOUSEBUTTONDOWN:
-            x, y = e.x, get_canvas_height() - e.y  # y 좌표 반전
-            if self.is_clicked(x, y):
-                self.RemoveTower()
-                pass
+            x, y = e.x, get_canvas_height() - e.y
+            if self.is_clicked(x, y):  # 클릭된 빈 공간이나 터렛 확인
+                if e.button == SDL_BUTTON_LEFT:  # 좌클릭
+                    if self.turret_type == 0:  # 빈 공간이면 1번 터렛 설치
+                        self.build_GunTurret()
+                    elif self.turret_type == 1:  # 1번 터렛이면 빈 공간으로 변경
+                        self.to_empty_space()
+                elif e.button == SDL_BUTTON_RIGHT:  # 우클릭
+                    if self.turret_type == 0:  # 빈 공간이면 2번 터렛 설치
+                        self.build_ShieldTurret()
+                    elif self.turret_type == 2:  # 2번 터렛이면 빈 공간으로 변경
+                        self.to_empty_space()
 
 
     def update(self):
@@ -51,10 +60,10 @@ class GunTurret(gfw.Sprite):
         world = gfw.top().world
         world.append(Bullet(self.x, self.y), world.layer.bullet)
 
-    def RemoveTower(self):
-        newturret = game_scene.Turret(self.x, self.y)
+    def to_empty_space(self):
+        newturret = game_scene.Turret(self.x, self.y)  # 빈 공간 생성
         game_scene.world.append(newturret, game_scene.world.layer.turret)
-        game_scene.world.remove(self, game_scene.world.layer.turret)
+        game_scene.world.remove(self, game_scene.world.layer.turret)  # 기존 터렛 삭제
 
 class Bullet(gfw.Sprite):
     def __init__(self, x, y):
