@@ -50,6 +50,9 @@ class Fighter(gfw.Sprite):
         self.roll_time = 0
         self.src_rect = Fighter.IMAGE_RECTS[5] # 0~10 의 11 개 중 5번이 가운데이다.
         self.shot = 0
+        self.fuel = 10
+        self.bfuelstatus = False
+        self.hp = 5
 
     def handle_event(self, e):
         pair = (e.type, e.key)
@@ -103,6 +106,9 @@ class Fighter(gfw.Sprite):
     def get_bb(self):
         return self.x - 30, self.y - 32, self.x + 30, self.y + 28
 
+    def dead(self):
+        self.hp -= 1
+        return self.hp <= 0
 class Bullet(gfw.Sprite):
     def __init__(self, x, y):
         super().__init__('res/laser_1.png', x, y)

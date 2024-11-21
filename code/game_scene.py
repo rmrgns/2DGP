@@ -12,19 +12,10 @@ world = gfw.World(['bg', 'fighter', 'bullet', 'enemy', 'ui', 'controller', 'turr
 canvas_width = 500
 canvas_height = 800
 shows_bounding_box = True
-shows_object_count = True
+shows_object_count = False
 
 def enter():
-    for i in range(1,2):
-        x,y = i*100-50, 200
-        turret = Turret(x,y)
-        world.append(turret,world.layer.turret)
-    for i in range(1,1):
-        x, y = i * 100 - 50, 100
-        turret = Turret(x, y)
-        world.append(turret, world.layer.turret)
-
-    #center = world.append(gfw.Sprite('resources/center.png', 0, 0), world.layer.ui)
+    # center = world.append(gfw.Sprite('resources/center.png', 0, 0), world.layer.ui)
     world.append(gfw.VertFillBackground('res/clouds.png', -60), world.layer.bg)
     world.append(gfw.VertFillBackground('res/bg_city.png', -30), world.layer.bg)
 
@@ -38,6 +29,14 @@ def enter():
     world.append(EnemyGen(), world.layer.controller)
     world.append(CollisionChecker(), world.layer.controller)
 
+    for i in range(1,6):
+        x,y = i*100-50, 200
+        turret = Turret(x,y)
+        world.append(turret,world.layer.turret)
+    for i in range(1,6):
+        x, y = i * 100 - 50, 100
+        turret = Turret(x, y)
+        world.append(turret, world.layer.turret)
 
     global score
     score = 0
@@ -61,6 +60,9 @@ def handle_event(e):
         gfw.change(upgrade_scene)
     if e.type == SDL_KEYDOWN and e.key == SDLK_e:
         gfw.change(end_scene)
+    if e.type == SDL_KEYDOWN and e.key == SDLK_t:
+        for i, objs in enumerate(world.objects):
+            print(f"Layer {i}: {objs}")
     fighter.handle_event(e)
     turrets = world.objects_at(world.layer.turret)
     for t in turrets:
@@ -88,24 +90,28 @@ class CollisionChecker:
             if collided: break
             if gfw.collides_box(fighter, e):
                 world.remove(e)
+                fdead = fighter.dead()
+                if fdead:
+                    #world.remove(fighter)
+                    print("fighter dead")
                 # decrease fighter HP here?
-            turrets = world.objects_at(world.layer.turret)
-            for t in turrets:
-                if t.turret_type == 1:
-                    if gfw.collides_box(t,e):
-                        collided = True
-                        turret = Turret(t.x, t.y)
-                        world.append(turret, world.layer.turret)
-                        world.remove(t,world.layer.turret)
-                        world.remove(e)
-                elif t.turret_type == 2:
-                    if gfw.collides_box(t,e):
-                        t.hp -= 1
-                        #turret = Turret(t.x, t.y)
-                        #world.append(turret, world.layer.turret)
-                        #world.remove(t,world.layer.turret)
-                        world.remove(e)
-                break
+            # turrets = world.objects_at(world.layer.turret)
+            # for t in turrets:
+            #     if t.turret_type == 1:
+            #         if gfw.collides_box(t,e):
+            #             collided = True
+            #             turret = Turret(t.x, t.y)
+            #             world.append(turret, world.layer.turret)
+            #             world.remove(t,world.layer.turret)
+            #             world.remove(e)
+            #     elif t.turret_type == 2:
+            #         if gfw.collides_box(t,e):
+            #             t.hp -= 1
+            #             #turret = Turret(t.x, t.y)
+            #             #world.append(turret, world.layer.turret)
+            #             #world.remove(t,world.layer.turret)
+            #             world.remove(e)
+            #     break
 
 class GameScenUI:
     def __init__(self):
