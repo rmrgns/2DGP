@@ -77,7 +77,10 @@
    ![image](https://github.com/user-attachments/assets/be4cbd63-98d8-49eb-b54a-5a4e04314a5b)
 
    1주차	16
+   
    2주차	17
+   
    3주차	3
+   
 
 
