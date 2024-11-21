@@ -71,3 +71,7 @@
 5. 진행상황
 
    2주차: 씬변환 완료, 터렛 객체 생성까지 진행
+
+6. 커밋
+   ![image](https://github.com/user-attachments/assets/be4cbd63-98d8-49eb-b54a-5a4e04314a5b)
+
