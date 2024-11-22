@@ -10,7 +10,7 @@ class GunTurret(gfw.Sprite):
     def __init__(self, x, y):
         super().__init__('resources/attack.png', x, y)
         self.x, self.y = x,y
-        self.width, self.height = self.image.w, self.image.h
+        self.width , self.height = self.image.w, self.image.h
         self.hp = 100
         self.laser_time = 0
         self.spark_image = gfw.image.load('res/laser_0.png')
@@ -19,17 +19,11 @@ class GunTurret(gfw.Sprite):
 
     def handle_event(self, e):
         if e.type == SDL_MOUSEBUTTONDOWN:
+            print(self.width, "+", self.height)
             x, y = e.x, get_canvas_height() - e.y
             if self.is_clicked(x, y):  # 클릭된 빈 공간이나 터렛 확인
                 if e.button == SDL_BUTTON_LEFT:  # 좌클릭
-                    if self.turret_type == 0:  # 빈 공간이면 1번 터렛 설치
-                        self.build_GunTurret()
-                    elif self.turret_type == 1:  # 1번 터렛이면 빈 공간으로 변경
-                        self.to_empty_space()
-                elif e.button == SDL_BUTTON_RIGHT:  # 우클릭
-                    if self.turret_type == 0:  # 빈 공간이면 2번 터렛 설치
-                        self.build_ShieldTurret()
-                    elif self.turret_type == 2:  # 2번 터렛이면 빈 공간으로 변경
+                    if self.turret_type == 1:  # 1번 터렛이면 빈 공간으로 변경
                         self.to_empty_space()
 
 

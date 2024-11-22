@@ -18,13 +18,9 @@ class Turret(gfw.Sprite):
                 if e.button == SDL_BUTTON_LEFT:  # 좌클릭
                     if self.turret_type == 0:  # 빈 공간이면 1번 터렛 설치
                         self.build_GunTurret()
-                    elif self.turret_type == 1:  # 1번 터렛이면 빈 공간으로 변경
-                        self.to_empty_space()
                 elif e.button == SDL_BUTTON_RIGHT:  # 우클릭
                     if self.turret_type == 0:  # 빈 공간이면 2번 터렛 설치
                         self.build_ShieldTurret()
-                    elif self.turret_type == 2:  # 2번 터렛이면 빈 공간으로 변경
-                        self.to_empty_space()
 
 
     def update(self):
@@ -48,21 +44,14 @@ class Turret(gfw.Sprite):
     def build_GunTurret(self):
         gun = GunTurret(self.x, self.y)
         game_scene.world.append(gun, game_scene.world.layer.turret)
-        existing_turrets = game_scene.world.objects_at(game_scene.world.layer.turret)
-        for turret in existing_turrets:
-            if turret.x == self.x and turret.y == self.y and turret is self:
-                game_scene.world.remove(turret, game_scene.world.layer.turret)
-        pass
+        game_scene.world.remove(self, game_scene.world.layer.turret)
 
     def build_ShieldTurret(self):
         shield = ShieldTurret(self.x, self.y)
         game_scene.world.append(shield, game_scene.world.layer.turret)
-        if self in game_scene.world.objects_at(game_scene.world.layer.turret):  # 현재 빈 공간 확인
-            game_scene.world.remove(self, game_scene.world.layer.turret)  # 빈 공간 삭제
-        pass
+        game_scene.world.remove(self, game_scene.world.layer.turret)
 
     def to_empty_space(self):
-        print(f"Changing turret at ({self.x}, {self.y}) to empty space.")
         newturret = Turret(self.x, self.y)  # 빈 공간 생성
         game_scene.world.append(newturret, game_scene.world.layer.turret)
         game_scene.world.remove(self, game_scene.world.layer.turret)  # 기존 터렛 삭제

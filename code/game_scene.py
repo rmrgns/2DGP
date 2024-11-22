@@ -64,6 +64,9 @@ def handle_event(e):
         for i, objs in enumerate(world.objects):
             print(f"Layer {i}: {objs}")
     fighter.handle_event(e)
+    # turretuis = world.objects_at(world.layer.turretui)
+    # for tui in turretuis:
+    #     tui.handle_event(e)
     turrets = world.objects_at(world.layer.turret)
     for t in turrets:
         t.handle_event(e)
