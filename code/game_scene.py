@@ -15,12 +15,12 @@ shows_bounding_box = True
 shows_object_count = False
 fighter_count = False
 def enter():
-    # center = world.append(gfw.Sprite('resources/center.png', 0, 0), world.layer.ui)
+    #center = world.append(gfw.Sprite('resources/center.png', 0, 0), world.layer.ui)
     world.append(gfw.VertFillBackground('res/clouds.png', -60), world.layer.bg)
     world.append(gfw.VertFillBackground('res/bg_city.png', -30), world.layer.bg)
 
-    #global fighter
-    #fighter = Fighter()
+    global fighter
+    fighter = Fighter()
     # world.append(fighter, world.layer.fighter)
     # world.append(MainSceneUI(), world.layer.ui)
     global score_sprite
