@@ -63,10 +63,9 @@ def handle_event(e):
     if e.type == SDL_KEYDOWN and e.key == SDLK_t:
         for i, objs in enumerate(world.objects):
             print(f"Layer {i}: {objs}")
+    # 전투기 이벤트        
     fighter.handle_event(e)
-    # turretuis = world.objects_at(world.layer.turretui)
-    # for tui in turretuis:
-    #     tui.handle_event(e)
+    # 터렛 이벤트
     turrets = world.objects_at(world.layer.turret)
     for t in turrets:
         t.handle_event(e)
@@ -98,23 +97,19 @@ class CollisionChecker:
                     #world.remove(fighter)
                     print("fighter dead")
                 # decrease fighter HP here?
-            # turrets = world.objects_at(world.layer.turret)
-            # for t in turrets:
-            #     if t.turret_type == 1:
-            #         if gfw.collides_box(t,e):
-            #             collided = True
-            #             turret = Turret(t.x, t.y)
-            #             world.append(turret, world.layer.turret)
-            #             world.remove(t,world.layer.turret)
-            #             world.remove(e)
-            #     elif t.turret_type == 2:
-            #         if gfw.collides_box(t,e):
-            #             t.hp -= 1
-            #             #turret = Turret(t.x, t.y)
-            #             #world.append(turret, world.layer.turret)
-            #             #world.remove(t,world.layer.turret)
-            #             world.remove(e)
-            #     break
+
+            turrets = world.objects_at(world.layer.turret)
+            for t in turrets:
+                if gfw.collides_box(t,e):
+                    if t.turret_type == 0:
+                        pass
+                    else:
+                        collided = True
+                        world.remove(e)
+                        sdead = t.dead()
+                        if sdead:
+                            t.to_empty_space()
+
 
 class GameScenUI:
     def __init__(self):

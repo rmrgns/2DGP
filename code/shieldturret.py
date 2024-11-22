@@ -40,5 +40,9 @@ class ShieldTurret(gfw.Sprite):
 
     def to_empty_space(self):
         newturret = game_scene.Turret(self.x, self.y)  # 빈 공간 생성
-        game_scene.world.append(newturret, game_scene.world.layer.turretui)
+        game_scene.world.append(newturret, game_scene.world.layer.turret)
         game_scene.world.remove(self, game_scene.world.layer.turret)
+
+    def dead(self):
+        self.hp -= 1
+        return self.hp <= 0
