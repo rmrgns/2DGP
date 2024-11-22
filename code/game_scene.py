@@ -13,7 +13,7 @@ canvas_width = 500
 canvas_height = 800
 shows_bounding_box = True
 shows_object_count = False
-
+fighter_count = False
 def enter():
     # center = world.append(gfw.Sprite('resources/center.png', 0, 0), world.layer.ui)
     world.append(gfw.VertFillBackground('res/clouds.png', -60), world.layer.bg)
@@ -52,10 +52,16 @@ def resume():
     print('[game.resume()]')
 
 def handle_event(e):
+    global fighter_count
+    global fighter
     if e.type == SDL_KEYDOWN and e.key == SDLK_1:
         print(world.objects)
     if e.type == SDL_KEYDOWN and e.key == SDLK_s:
-        world.append(fighter, world.layer.fighter)
+        if fighter_count == False:
+            fighter = Fighter()
+            world.append(fighter, world.layer.fighter)
+            fighter_count = True
+
     if e.type == SDL_KEYDOWN and e.key == SDLK_q:
         gfw.change(upgrade_scene)
     if e.type == SDL_KEYDOWN and e.key == SDLK_e:
@@ -73,6 +79,7 @@ def handle_event(e):
 class CollisionChecker:
     def draw(self): pass
     def update(self):
+        global fighter_count
         enemies = world.objects_at(world.layer.enemy)
         for e in enemies: # reversed order
             collided = False
@@ -94,7 +101,8 @@ class CollisionChecker:
                 world.remove(e)
                 fdead = fighter.dead()
                 if fdead:
-                    #world.remove(fighter)
+                    world.remove(fighter, world.layer.fighter)
+                    fighter_count = False
                     print("fighter dead")
                 # decrease fighter HP here?
 
