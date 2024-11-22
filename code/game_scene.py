@@ -19,8 +19,8 @@ def enter():
     world.append(gfw.VertFillBackground('res/clouds.png', -60), world.layer.bg)
     world.append(gfw.VertFillBackground('res/bg_city.png', -30), world.layer.bg)
 
-    global fighter
-    fighter = Fighter()
+    #global fighter
+    #fighter = Fighter()
     # world.append(fighter, world.layer.fighter)
     # world.append(MainSceneUI(), world.layer.ui)
     global score_sprite
@@ -69,8 +69,9 @@ def handle_event(e):
     if e.type == SDL_KEYDOWN and e.key == SDLK_t:
         for i, objs in enumerate(world.objects):
             print(f"Layer {i}: {objs}")
-    # 전투기 이벤트        
-    fighter.handle_event(e)
+    # 전투기 이벤트
+    if fighter_count == True:
+        fighter.handle_event(e)
     # 터렛 이벤트
     turrets = world.objects_at(world.layer.turret)
     for t in turrets:
