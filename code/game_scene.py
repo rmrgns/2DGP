@@ -6,8 +6,9 @@ import end_scene
 from fighter import Fighter
 from enemy import EnemyGen
 from turret import Turret
+from commandcenter import CmdCenter
 
-world = gfw.World(['bg', 'fighter', 'bullet', 'enemy', 'ui', 'controller', 'turret'])
+world = gfw.World(['bg', 'fighter', 'bullet', 'enemy', 'ui', 'controller', 'turret', 'center'])
 
 canvas_width = 500
 canvas_height = 800
@@ -40,6 +41,9 @@ def enter():
 
     global score
     score = 0
+
+    center = CmdCenter(canvas_width / 2, 10)
+    world.append(center, world.layer.center)
 
 def exit():
     world.clear()
