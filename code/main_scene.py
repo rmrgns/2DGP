@@ -2,12 +2,12 @@ from pico2d import *
 import gfw
 import game_scene
 
-world = gfw.World(['bg'])
-canvas_width = 500
+world = gfw.World(['mainbg'])
+canvas_width = 700
 canvas_height = 800
 
 def enter():
-    world.append(gfw.VertFillBackground('resources/spacebg.png', -30), world.layer.bg)
+    world.append(gfw.VertFillBackground('resources/spacebg.png', -30), world.layer.mainbg)
     pass
 
 def exit():

@@ -25,6 +25,7 @@ def enter():
     # world.append(fighter, world.layer.fighter)
     # world.append(MainSceneUI(), world.layer.ui)
     global score_sprite
+
     score_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width - 50, canvas_height - 50)
     world.append(score_sprite, world.layer.ui)
     world.append(EnemyGen(), world.layer.controller)
