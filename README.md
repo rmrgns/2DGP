@@ -45,6 +45,13 @@
       - 기지: 적이나 적 투사체에 닿으면 체력 소모, 체력이 0이 되면 게임 오버
         
       - 방어시설: 자원을 소모해 적을 막거나 자동 공격하는 시설 설치, 적이나 적 투사체에 닿으면 체력 소모, 체력이 0이 되면 시설 사라짐
+     
+      - ![image](https://github.com/user-attachments/assets/5726fc7f-61f9-401a-895d-42330e8f814e)
+     
+      - 터렛 설치 공간에 좌클릭하면 공격터렛, 우클릭하면 방어터렛 설치
+     
+      - 적과 부딪히면 터렛의 체력이 줄어들며 체력이 0이 되면 제거됨
+
         
       - 전투기: 투사체를 발사해 적을 공격, 출격시 연료가 지속적으로 소모되며 0이 되면 기지복귀, 기지복귀시 연료가 회복됨, 적이나 적 투사체에 닿으면 체력 소모, 체력이 0이 되면 해당 라운드에서 출격 불가
         
@@ -65,23 +72,22 @@
 
 4. 일정
    
-   ![4](https://github.com/user-attachments/assets/0156253a-78d4-4bf1-8e5f-a09cc785931a)
+![image](https://github.com/user-attachments/assets/43e15d17-057f-41e4-879c-2f97f3f5d454)
 
 
 5. 진행상황
 
    2주차: 씬변환 완료, 터렛 객체 생성까지 진행
 
-6. 커밋
+   3주차: 메인씬 게임시작버튼 추가, 공격/방어터렛 생성 및 제거, 전투기 출동 및 제거
    
-   ![image](https://github.com/user-attachments/assets/be4cbd63-98d8-49eb-b54a-5a4e04314a5b)
 
-   1주차	16
+7. 커밋
    
-   2주차	17
-   
-   3주차	3
+   ![image](https://github.com/user-attachments/assets/14a1a5ee-9e06-45ac-a892-9293216866fb)
 
-   |제목|내용|설명|
-   |1주차|16개|
+   ![image](https://github.com/user-attachments/assets/4d73e9bc-3030-450d-9d9c-4844fad3887e)
+
+
+
 
