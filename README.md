@@ -1,5 +1,7 @@
 1차발표: https://youtu.be/NDh2bC0vJQs
 
+중간발표: https://youtu.be/L4DmvTKYIP8
+
 게임 이름: 가디언 오브 테라
 
 2017180039정극훈
