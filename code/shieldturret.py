@@ -2,6 +2,7 @@ from pico2d import *
 import gfw
 
 import game_scene
+import playerstatus
 
 class ShieldTurret(gfw.Sprite):
     def __init__(self, x, y):
@@ -9,7 +10,7 @@ class ShieldTurret(gfw.Sprite):
         self.x, self.y = x,y
         self.width, self.height = self.image.w, self.image.h
 
-        self.hp = 10
+        self.hp = 10 + playerstatus.status.getshieldturretHPUpgrade() * 2
         self.turret_type = 2
 
     def handle_event(self, e):

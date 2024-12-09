@@ -1,5 +1,6 @@
 from pico2d import *
 import gfw
+import playerstatus
 
 class Fighter(gfw.Sprite):
     KEY_MAP = {
@@ -52,7 +53,7 @@ class Fighter(gfw.Sprite):
         self.shot = 0
         self.fuel = 10
         self.bfuelstatus = False
-        self.hp = 5
+        self.hp = 5 + playerstatus.status.getfighterHPUpgrade() * 2
 
     def handle_event(self, e):
         pair = (e.type, e.key)

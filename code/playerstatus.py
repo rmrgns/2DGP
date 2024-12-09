@@ -25,8 +25,8 @@ class PlayerStatus():
     def setshieldturretHPUpgrade(self, level):
         self.shieldturretHPUpgrade = level
 
-    def getgunturretHPUpgrade(self):
-        return self.gunturretHPUpgrade
+    def getgunturretATKUpgrade(self):
+        return self.gunturretATKUpgrade
     def setgunturretATKUpgrade(self, level):
         self.gunturretATKUpgrade = level
 
