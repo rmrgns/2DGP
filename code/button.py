@@ -1,7 +1,5 @@
 from pico2d import *
 import gfw
-import game_scene
-import main_scene
 
 class Button(gfw.Sprite):
     def __init__(self, image, x, y):

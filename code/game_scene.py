@@ -110,7 +110,6 @@ class CollisionChecker:
                     world.remove(fighter, world.layer.fighter)
                     fighter_count = False
                     print("fighter dead")
-                # decrease fighter HP here?
 
             turrets = world.objects_at(world.layer.turret)
             for t in turrets:

@@ -1,18 +1,45 @@
-from pico2d import *
-import gfw
+
+max_up = 5
 
 class PlayerStatus():
     def __init__(self):
         # resource
-        gold = 0
+        self.gold = 0
 
         # score
-        score = 0
+        self.score = 0
 
         # Upgrade
-        fighterHPUpgrade = 0
-        shieldturretHPUpgrade = 0
-        gunturretATKUpgrade = 0
+        self.fighterHPUpgrade = 0
+        self.shieldturretHPUpgrade = 0
+        self.gunturretATKUpgrade = 0
 
+    # method
+    def getfighterHPUpgrade(self):
+        return self.fighterHPUpgrade
+    def setfighterHPUpgrade(self, level):
+        self.fighterHPUpgrade = level
 
+    def getshieldturretHPUpgrade(self):
+        return self.shieldturretHPUpgrade
+    def setshieldturretHPUpgrade(self, level):
+        self.shieldturretHPUpgrade = level
+
+    def getgunturretHPUpgrade(self):
+        return self.gunturretHPUpgrade
+    def setgunturretATKUpgrade(self, level):
+        self.gunturretATKUpgrade = level
+
+    # Upgrade
+    def upgradefighterHP(self):
+        if self.fighterHPUpgrade < max_up:
+            self.fighterHPUpgrade += 1
+    def upgradeshieldturretHP(self):
+        if self.shieldturreHPUpgrade < max_up:
+            self.shieldturreHPUpgrade += 1
+    def upgradegunturreATK(self):
+        if self.gunturretATKUpgrade < max_up:
+            self.gunturretATKUpgrade += 1
     pass
+
+status = PlayerStatus()
