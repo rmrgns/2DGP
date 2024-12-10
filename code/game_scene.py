@@ -29,12 +29,12 @@ def enter():
     # world.append(MainSceneUI(), world.layer.ui)
 
     global score_sprite
-    score_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 100, canvas_height - 100)
+    score_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 150, canvas_height - 100)
     world.append(score_sprite, world.layer.ui)
     score_sprite.score = playerstatus.status.score
 
     global gold_sprite
-    gold_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 100, canvas_height - 200)
+    gold_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 150, canvas_height - 200)
     world.append(gold_sprite, world.layer.ui)
     gold_sprite.score = playerstatus.status.gold
 
