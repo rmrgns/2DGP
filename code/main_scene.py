@@ -10,8 +10,11 @@ canvas_height = 800
 def enter():
     world.append(gfw.VertFillBackground('resources/spacebg.png', -30), world.layer.mainbg)
 
+    title = gfw.Sprite('resources/title.png', canvas_width / 2, canvas_height * (3/4))
+    world.append(title,world.layer.button)
+
     global startbtn
-    startbtn = Button('resources/gamestart.png', canvas_width / 2, canvas_height / 2)
+    startbtn = Button('resources/gamestart.png', canvas_width / 2, canvas_height * (1/4))
     world.append(startbtn,world.layer.button)
     pass
 
