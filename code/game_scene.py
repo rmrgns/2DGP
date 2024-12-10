@@ -9,7 +9,7 @@ from enemy import EnemyGen
 from turret import Turret
 from commandcenter import CmdCenter
 
-world = gfw.World(['bg', 'fighter', 'bullet', 'enemy', 'ui', 'controller', 'turret', 'center'])
+world = gfw.World(['bg', 'fighter', 'bullet', 'enemy', 'ui', 'controller', 'turret', 'center', 'enemybullet'])
 
 canvas_width = 500
 canvas_height = 800
