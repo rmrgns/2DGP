@@ -4,7 +4,7 @@ max_up = 5
 class PlayerStatus():
     def __init__(self):
         # resource
-        self.gold = 0
+        self.gold = 10000
 
         # score
         self.score = 0
@@ -40,13 +40,25 @@ class PlayerStatus():
     # Upgrade
     def upgradefighterHP(self):
         if self.fighterHPUpgrade < max_up:
+            self.gold -= 1000
             self.fighterHPUpgrade += 1
+    def upgradefighterATK(self):
+        if self.fighterATKUpgrade < max_up:
+            self.gold -= 1000
+            self.fighterATKUpgrade += 1
     def upgradeshieldturretHP(self):
-        if self.shieldturreHPUpgrade < max_up:
-            self.shieldturreHPUpgrade += 1
+        if self.shieldturretHPUpgrade < max_up:
+            self.gold -= 1000
+            self.shieldturretHPUpgrade += 1
     def upgradegunturreATK(self):
         if self.gunturretATKUpgrade < max_up:
+            self.gold -= 1000
             self.gunturretATKUpgrade += 1
-    pass
+
+    def upgradeCheck(self):
+        if self.gold < 1000:
+            return False
+        else:
+            return True
 
 status = PlayerStatus()

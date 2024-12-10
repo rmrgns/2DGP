@@ -16,6 +16,8 @@ canvas_height = 800
 shows_bounding_box = True
 shows_object_count = False
 
+
+
 def enter():
     #center = world.append(gfw.Sprite('resources/center.png', 0, 0), world.layer.ui)
     world.append(gfw.VertFillBackground('res/clouds.png', -60), world.layer.bg)
@@ -25,10 +27,17 @@ def enter():
     fighter = Fighter()
     world.append(fighter, world.layer.fighter)
     # world.append(MainSceneUI(), world.layer.ui)
-    global score_sprite
 
-    score_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 100, canvas_height - 50)
+    global score_sprite
+    score_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 100, canvas_height - 100)
     world.append(score_sprite, world.layer.ui)
+    score_sprite.score = playerstatus.status.score
+
+    global gold_sprite
+    gold_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 100, canvas_height - 200)
+    world.append(gold_sprite, world.layer.ui)
+    gold_sprite.score = playerstatus.status.gold
+
     world.append(EnemyGen(), world.layer.controller)
     world.append(CollisionChecker(), world.layer.controller)
 
@@ -40,9 +49,6 @@ def enter():
         x, y = i * 100 - 50, 100
         turret = Turret(x, y)
         world.append(turret, world.layer.turret)
-
-    global score
-    score = 0
 
     center = CmdCenter(canvas_width / 2, 10)
     world.append(center, world.layer.center)
@@ -58,7 +64,6 @@ def resume():
     print('[game.resume()]')
 
 def handle_event(e):
-    global fighter_count
     global fighter
     if e.type == SDL_KEYDOWN and e.key == SDLK_1:
         print(world.objects)
@@ -85,6 +90,11 @@ def handle_event(e):
     for t in turrets:
         t.handle_event(e)
 
+def getGold_scoreBtn():
+    global gold_sprite
+    return gold_sprite
+
+
 class CollisionChecker:
     def draw(self): pass
     def update(self):
@@ -98,8 +108,11 @@ class CollisionChecker:
                     world.remove(b)
                     dead = e.decrease_life(b.power)
                     if dead:
+                        playerstatus.status.score += e.score
+                        score_sprite.score = playerstatus.status.score
+
                         playerstatus.status.gold += e.score
-                        score_sprite.score = playerstatus.status.gold
+                        gold_sprite.score = playerstatus.status.gold
                         # print(f'+{e.score} ={score}')
                         world.remove(e)
                     break

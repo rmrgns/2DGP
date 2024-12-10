@@ -3,8 +3,9 @@ import gfw
 
 from button import Button
 import playerstatus
+import game_scene
 
-world = gfw.World(['upgradebg', 'button'])
+world = gfw.World(['upgradebg', 'button', 'ui'])
 canvas_width = 700
 canvas_height = 800
 
@@ -12,17 +13,30 @@ def enter():
     world.append(gfw.Background('resources/spacebg.png'), world.layer.upgradebg)
 
     global fighterHPUpgradeBtn
-    fighterHPUpgradeBtn = Button('resources/gamestart.png', canvas_width / 2, canvas_height * (3 / 4))
+    fighterHPUpgradeBtn = Button('resources/upFHP.png', canvas_width * (1 / 3), canvas_height * (5 / 6))
     world.append(fighterHPUpgradeBtn, world.layer.button)
 
+    global fighterATKUpgradeBtn
+    fighterATKUpgradeBtn = Button('resources/upFATK.png', canvas_width * (1 / 3), canvas_height * (4 / 6))
+    world.append(fighterATKUpgradeBtn, world.layer.button)
+
     global shieldTurretHPUpgradeBtn
-    shieldTurretHPUpgradeBtn = Button('resources/gamestart.png', canvas_width / 2, canvas_height * (2 / 4))
+    shieldTurretHPUpgradeBtn = Button('resources/upSHP.png', canvas_width * (1 / 3), canvas_height * (3 / 6))
     world.append(shieldTurretHPUpgradeBtn, world.layer.button)
 
     global gunTurretATKUpgradeBtn
-    gunTurretATKUpgradeBtn = Button('resources/gamestart.png', canvas_width / 2, canvas_height * (1 / 4))
+    gunTurretATKUpgradeBtn = Button('resources/upGATK.png', canvas_width * (1 / 3), canvas_height * (2 / 6))
     world.append(gunTurretATKUpgradeBtn, world.layer.button)
-    pass
+
+    global gameStartBtn
+    gameStartBtn = Button('resources/gamestart.png', canvas_width * (1 / 3), canvas_height * (1 / 6))
+    world.append(gameStartBtn, world.layer.button)
+
+    global gold_sprite
+    gold_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width - 50, canvas_height - 100)
+    world.append(gold_sprite, world.layer.ui)
+    gold_sprite.score = playerstatus.status.gold
+
 
 def exit():
     world.clear()
@@ -44,17 +58,29 @@ def handle_event(e):
 
     if e.type == SDL_MOUSEBUTTONDOWN:
         x, y = e.x, get_canvas_height() - e.y
-        if fighterHPUpgradeBtn.is_clicked(x, y):  # 클릭된 빈 공간이나 터렛 확인
+        if playerstatus.status.upgradeCheck():
+            if fighterHPUpgradeBtn.is_clicked(x, y):
+                if e.button == SDL_BUTTON_LEFT:  # 좌클릭
+                    playerstatus.status.upgradefighterHP()
+
+            if fighterATKUpgradeBtn.is_clicked(x, y):
+                if e.button == SDL_BUTTON_LEFT:  # 좌클릭
+                    playerstatus.status.upgradefighterATK()
+
+            if shieldTurretHPUpgradeBtn.is_clicked(x, y):
+                if e.button == SDL_BUTTON_LEFT:
+                    playerstatus.status.upgradeshieldturretHP()
+
+            if gunTurretATKUpgradeBtn.is_clicked(x, y):
+                if e.button == SDL_BUTTON_LEFT:
+                    playerstatus.status.upgradegunturreATK()
+            game_scene.getGold_scoreBtn().score = playerstatus.status.gold
+            gold_sprite.score = playerstatus.status.gold
+
+        if gameStartBtn.is_clicked(x, y):
             if e.button == SDL_BUTTON_LEFT:  # 좌클릭
-                playerstatus.status.upgradefighterHP()
-
-        if shieldTurretHPUpgradeBtn.is_clicked(x, y):
-            if e.button == SDL_BUTTON_LEFT:
-                playerstatus.status.upgradeshieldturretHP()
-
-        if gunTurretATKUpgradeBtn.is_clicked(x, y):
-            if e.button == SDL_BUTTON_LEFT:
-                playerstatus.status.upgradegunturreATK()
+                #gfw.change(game_scene)
+                gfw.pop()
 
 
 class CollisionChecker:

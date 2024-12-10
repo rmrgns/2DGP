@@ -3,6 +3,7 @@ import gfw
 from gunturret import GunTurret
 from shieldturret import ShieldTurret
 import game_scene
+import playerstatus
 
 class Turret(gfw.Sprite):
     def __init__(self, x, y):
@@ -15,12 +16,16 @@ class Turret(gfw.Sprite):
         if e.type == SDL_MOUSEBUTTONDOWN:
             x, y = e.x, get_canvas_height() - e.y
             if self.is_clicked(x, y):  # 클릭된 빈 공간이나 터렛 확인
+                if playerstatus.status.gold < 200:
+                    return
                 if e.button == SDL_BUTTON_LEFT:  # 좌클릭
                     if self.turret_type == 0:  # 빈 공간이면 1번 터렛 설치
                         self.build_GunTurret()
                 elif e.button == SDL_BUTTON_RIGHT:  # 우클릭
                     if self.turret_type == 0:  # 빈 공간이면 2번 터렛 설치
                         self.build_ShieldTurret()
+                playerstatus.status.gold -= 200
+                game_scene.getGold_scoreBtn().score = playerstatus.status.gold
 
 
     def update(self):

@@ -65,6 +65,11 @@ class ScoreSprite(Sprite):
     def draw(self):
         x = self.x
         score = self.display
+        if score == 0:
+            digit = score % 10
+            sx = digit * self.digit_width
+            # print(type(sx), type(digit), type(self.digit_width))
+            self.image.clip_draw(sx, 0, self.digit_width, self.image.h, x, self.y)
         while score > 0:
             digit = score % 10
             sx = digit * self.digit_width
