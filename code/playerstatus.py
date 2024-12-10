@@ -8,9 +8,11 @@ class PlayerStatus():
 
         # score
         self.score = 0
+        self.round = 1
 
         # Upgrade
         self.fighterHPUpgrade = 0
+        self.fighterATKUpgrade = 0
         self.shieldturretHPUpgrade = 0
         self.gunturretATKUpgrade = 0
 
@@ -19,6 +21,11 @@ class PlayerStatus():
         return self.fighterHPUpgrade
     def setfighterHPUpgrade(self, level):
         self.fighterHPUpgrade = level
+
+    def getfighterATKUpgrade(self):
+        return self.fighterATKUpgrade
+    def setfighterATKUpgrade(self, level):
+        self.fighterATKUpgrade = level
 
     def getshieldturretHPUpgrade(self):
         return self.shieldturretHPUpgrade
