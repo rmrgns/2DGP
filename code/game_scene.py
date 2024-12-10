@@ -2,6 +2,7 @@ from pico2d import *
 import gfw
 import upgrade_scene
 import end_scene
+import playerstatus
 
 from fighter import Fighter
 from enemy import EnemyGen
@@ -14,7 +15,7 @@ canvas_width = 500
 canvas_height = 800
 shows_bounding_box = True
 shows_object_count = False
-fighter_count = False
+
 def enter():
     #center = world.append(gfw.Sprite('resources/center.png', 0, 0), world.layer.ui)
     world.append(gfw.VertFillBackground('res/clouds.png', -60), world.layer.bg)
@@ -22,11 +23,11 @@ def enter():
 
     global fighter
     fighter = Fighter()
-    # world.append(fighter, world.layer.fighter)
+    world.append(fighter, world.layer.fighter)
     # world.append(MainSceneUI(), world.layer.ui)
     global score_sprite
 
-    score_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width - 50, canvas_height - 50)
+    score_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 100, canvas_height - 50)
     world.append(score_sprite, world.layer.ui)
     world.append(EnemyGen(), world.layer.controller)
     world.append(CollisionChecker(), world.layer.controller)
@@ -62,20 +63,22 @@ def handle_event(e):
     if e.type == SDL_KEYDOWN and e.key == SDLK_1:
         print(world.objects)
     if e.type == SDL_KEYDOWN and e.key == SDLK_s:
-        if fighter_count == False:
-            fighter = Fighter()
-            world.append(fighter, world.layer.fighter)
-            fighter_count = True
+        if fighter.operating == False:
+            # fighter = Fighter()
+            # world.append(fighter, world.layer.fighter)
+            # fighter_count = True
+            fighter.__init__()
+            fighter.operating = True
 
     if e.type == SDL_KEYDOWN and e.key == SDLK_q:
-        gfw.change(upgrade_scene)
+        gfw.push(upgrade_scene)
     if e.type == SDL_KEYDOWN and e.key == SDLK_e:
         gfw.change(end_scene)
     if e.type == SDL_KEYDOWN and e.key == SDLK_t:
         for i, objs in enumerate(world.objects):
             print(f"Layer {i}: {objs}")
     # 전투기 이벤트
-    if fighter_count == True:
+    if fighter.operating == True:
         fighter.handle_event(e)
     # 터렛 이벤트
     turrets = world.objects_at(world.layer.turret)
@@ -85,7 +88,6 @@ def handle_event(e):
 class CollisionChecker:
     def draw(self): pass
     def update(self):
-        global fighter_count
         enemies = world.objects_at(world.layer.enemy)
         for e in enemies: # reversed order
             collided = False
@@ -96,9 +98,8 @@ class CollisionChecker:
                     world.remove(b)
                     dead = e.decrease_life(b.power)
                     if dead:
-                        global score
-                        score += e.score
-                        score_sprite.score = score
+                        playerstatus.status.gold += e.score
+                        score_sprite.score = playerstatus.status.gold
                         # print(f'+{e.score} ={score}')
                         world.remove(e)
                     break
@@ -107,8 +108,7 @@ class CollisionChecker:
                 world.remove(e)
                 fdead = fighter.dead()
                 if fdead:
-                    world.remove(fighter, world.layer.fighter)
-                    fighter_count = False
+                    fighter.operating = False
                     print("fighter dead")
 
             turrets = world.objects_at(world.layer.turret)
@@ -130,7 +130,7 @@ class GameScenUI:
         self.pos = (canvas_width - 320, canvas_height - 40)
     def update(self): pass
     def draw(self):
-        self.font.draw(*self.pos, f'{score:10d}')
+        self.font.draw(*self.pos, f'{playerstatus.status.gold:10d}')
 
 
 #if __name__ == '__main__':
