@@ -34,7 +34,7 @@ def handle_event(e):
         x, y = e.x, get_canvas_height() - e.y
         if startbtn.is_clicked(x, y):  # 클릭된 빈 공간이나 터렛 확인
             if e.button == SDL_BUTTON_LEFT:  # 좌클릭
-                gfw.change(game_scene)
+                gfw.push(game_scene)
 
 class CollisionChecker:
     def draw(self): pass

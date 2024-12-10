@@ -11,18 +11,18 @@ def enter():
 
 def exit():
     world.clear()
-    print('[main.exit()]')
+    print('[end.exit()]')
 
 def pause():
-    print('[main.pause()]')
+    print('[end.pause()]')
 
 def resume():
-    print('[main.resume()]')
+    print('[end.resume()]')
 
 def handle_event(e):
     if e.type == SDL_KEYDOWN:
         print(world.objects)
-        gfw.change(main_scene)
+        gfw.pop()
 
 
 class CollisionChecker:
