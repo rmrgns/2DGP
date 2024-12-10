@@ -31,8 +31,7 @@ class GunTurret(gfw.Sprite):
     def update(self):
         self.laser_time += gfw.frame_time
         if self.laser_time >= GunTurret.LASER_INTERVAL:
-            if self.shot == 1:
-                self.fire()
+            self.fire()
         pass
 
     def draw(self):
