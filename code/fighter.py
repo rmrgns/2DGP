@@ -50,7 +50,7 @@ class Fighter(gfw.Sprite):
         self.spark_image = gfw.image.load('res/laser_0.png')
         self.roll_time = 0
         self.src_rect = Fighter.IMAGE_RECTS[5] # 0~10 의 11 개 중 5번이 가운데이다.
-        self.shot = 0
+        self.operating = False
         self.fuel = 10
         self.bfuelstatus = False
         self.hp = 5 + playerstatus.status.getfighterHPUpgrade() * 2
@@ -62,19 +62,19 @@ class Fighter(gfw.Sprite):
                 self.dx += Fighter.KEY_MAP[pair]
             elif e.key == SDLK_UP or e.key == SDLK_DOWN:
                 self.dy += Fighter.KEY_MAP[pair]
-            elif e.key == SDLK_SPACE:
-                self.shot = Fighter.KEY_MAP[pair]
-                pass
+            # elif e.key == SDLK_SPACE:
+            #     self.shot = Fighter.KEY_MAP[pair]
+
     def update(self):
-        self.x += self.dx * self.speed * gfw.frame_time
-        self.y += self.dy * self.speed * gfw.frame_time
-        self.x = clamp(self.min_x, self.x, self.max_x)
-        self.y = clamp(self.min_y, self.y, self.max_y)
-        self.laser_time += gfw.frame_time
-        if self.laser_time >= Fighter.LASER_INTERVAL:
-            if self.shot == 1:
+        if self.operating == True:
+            self.x += self.dx * self.speed * gfw.frame_time
+            self.y += self.dy * self.speed * gfw.frame_time
+            self.x = clamp(self.min_x, self.x, self.max_x)
+            self.y = clamp(self.min_y, self.y, self.max_y)
+            self.laser_time += gfw.frame_time
+            if self.laser_time >= Fighter.LASER_INTERVAL:
                 self.fire()
-        self.update_roll()
+            self.update_roll()
     def update_roll(self):
         roll_dir = self.dx
         if roll_dir == 0: # 현재 비행기가 움직이고 있지 않은데
@@ -96,9 +96,10 @@ class Fighter(gfw.Sprite):
         self.src_rect = Fighter.IMAGE_RECTS[roll + 5] # [-5 ~ +5] 를 [0 ~ 10] 으로 변환한다.
     def draw(self):
         # super().draw()
-        self.image.clip_draw(*self.src_rect, self.x, self.y)
-        if self.laser_time < Fighter.SPARK_INTERVAL:
-            self.spark_image.draw(self.x, self.y + Fighter.SPARK_OFFSET)
+        if self.operating == True:
+            self.image.clip_draw(*self.src_rect, self.x, self.y)
+            if self.laser_time < Fighter.SPARK_INTERVAL:
+                self.spark_image.draw(self.x, self.y + Fighter.SPARK_OFFSET)
     def fire(self):
         self.laser_time = 0
         world = gfw.top().world
@@ -115,7 +116,7 @@ class Bullet(gfw.Sprite):
         super().__init__('res/laser_1.png', x, y)
         self.speed = 400 # 400 pixels per second
         self.max_y = get_canvas_height() + self.image.h
-        self.power = 40
+        self.power = 40 + playerstatus.status.getfighterATKUpgrade() * 20
         self.layer_index = gfw.top().world.layer.bullet
     def update(self):
         self.y += self.speed * gfw.frame_time
