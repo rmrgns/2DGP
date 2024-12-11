@@ -16,7 +16,7 @@ def enter():
     global startbtn
     startbtn = Button('resources/gamestart.png', canvas_width / 2, canvas_height * (1/4))
     world.append(startbtn,world.layer.button)
-    pass
+
 
 def exit():
     world.clear()

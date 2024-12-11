@@ -1,13 +1,20 @@
 from pico2d import *
 import gfw
 import main_scene
+from button import Button
 
-world = gfw.World(['mainbg'])
-canvas_width = 500
+world = gfw.World(['bg', 'button'])
+canvas_width = 700
 canvas_height = 800
 
 def enter():
-    pass
+    world.append(gfw.VertFillBackground('resources/spacebg.png', -30), world.layer.bg)
+
+    
+
+    global endbtn
+    endbtn = Button('resources/gameover.png', canvas_width / 2, canvas_height * (1 / 4))
+    world.append(endbtn, world.layer.button)
 
 def exit():
     world.clear()
@@ -20,10 +27,12 @@ def resume():
     print('[end.resume()]')
 
 def handle_event(e):
-    if e.type == SDL_KEYDOWN:
-        print(world.objects)
-        gfw.pop()
-        gfw.pop()
+    if e.type == SDL_MOUSEBUTTONDOWN:
+        x, y = e.x, get_canvas_height() - e.y
+        if endbtn.is_clicked(x, y):  # 클릭된 빈 공간이나 터렛 확인
+            if e.button == SDL_BUTTON_LEFT:  # 좌클릭
+                gfw.pop()
+                gfw.pop()
 
 
 class CollisionChecker:
