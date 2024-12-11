@@ -17,7 +17,12 @@ class Enemy(gfw.AnimSprite):
         self.elapsed_time = 0  # 적3의 행동 시간 추적
         self.fired = False     # 적3 공격 여부
         super().__init__(f'resources/monster_{enemy_type}.png', x, y, 10)
-        self.speed = -1000 if enemy_type != 3 else -50
+        if enemy_type == 1:
+            self.speed = -100
+        elif enemy_type == 2:
+            self.speed = -200
+        elif enemy_type == 3:
+            self.speed = -50
         self.max_life = level * 100
         self.life = self.max_life
         self.score = self.max_life
