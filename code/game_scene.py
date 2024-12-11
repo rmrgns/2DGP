@@ -20,8 +20,11 @@ shows_object_count = False
 
 def enter():
     #center = world.append(gfw.Sprite('resources/center.png', 0, 0), world.layer.ui)
-    world.append(gfw.VertFillBackground('res/clouds.png', -60), world.layer.bg)
-    world.append(gfw.VertFillBackground('res/bg_city.png', -30), world.layer.bg)
+    #world.append(gfw.VertFillBackground('resources/stars2.png', -60), world.layer.bg)
+    world.append(gfw.VertFillBackground('resources/battlebg.png', -30), world.layer.bg)
+
+    ui_sprite = gfw.Sprite('resources/gameui.png', canvas_width + 100, canvas_height / 2)
+    world.append(ui_sprite, world.layer.ui)
 
     global fighter
     fighter = Fighter()

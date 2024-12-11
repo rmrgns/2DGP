@@ -10,7 +10,7 @@ canvas_height = 800
 def enter():
     world.append(gfw.VertFillBackground('resources/spacebg.png', -30), world.layer.bg)
 
-    
+
 
     global endbtn
     endbtn = Button('resources/gameover.png', canvas_width / 2, canvas_height * (1 / 4))
