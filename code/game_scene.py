@@ -171,7 +171,7 @@ class CollisionChecker:
             if gfw.collides_box(center, e):
                 collided = True
                 if center.dead(e.power):
-                    gfw.push()
+                    gfw.push(end_scene)
                     print("center attacked")
                 else:
                     world.remove(e)

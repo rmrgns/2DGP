@@ -23,6 +23,7 @@ def handle_event(e):
     if e.type == SDL_KEYDOWN:
         print(world.objects)
         gfw.pop()
+        gfw.pop()
 
 
 class CollisionChecker:
