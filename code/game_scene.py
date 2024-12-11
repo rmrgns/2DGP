@@ -26,6 +26,8 @@ def enter():
     ui_sprite = gfw.Sprite('resources/gameui.png', canvas_width + 100, canvas_height / 2)
     world.append(ui_sprite, world.layer.ui)
 
+
+
     global fighter
     fighter = Fighter()
     world.append(fighter, world.layer.fighter)
@@ -35,11 +37,15 @@ def enter():
     score_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 150, canvas_height - 100)
     world.append(score_sprite, world.layer.ui)
     score_sprite.score = playerstatus.status.score
+    score_text_sprite = gfw.Sprite('resources/score.png', canvas_width + 120, canvas_height - 100 + 35)
+    world.append(score_text_sprite, world.layer.ui)
 
     global gold_sprite
     gold_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 150, canvas_height - 200)
     world.append(gold_sprite, world.layer.ui)
     gold_sprite.score = playerstatus.status.gold
+    gold_text_sprite = gfw.Sprite('resources/gold.png', canvas_width + 110, canvas_height - 200 + 50)
+    world.append(gold_text_sprite, world.layer.ui)
 
     world.append(EnemyGen(), world.layer.controller)
     world.append(CollisionChecker(), world.layer.controller)
