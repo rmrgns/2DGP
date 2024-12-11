@@ -50,6 +50,7 @@ def enter():
         turret = Turret(x, y)
         world.append(turret, world.layer.turret)
 
+    global center
     center = CmdCenter(canvas_width / 2, 10)
     world.append(center, world.layer.center)
 
@@ -99,43 +100,7 @@ class CollisionChecker:
     def draw(self): pass
     def update(self):
         self.enemyAttack()
-        enemies = world.objects_at(world.layer.enemy)
-        for e in enemies: # reversed order
-            collided = False
-            bullets = world.objects_at(world.layer.bullet)
-            for b in bullets: # reversed order
-                if gfw.collides_box(b, e):
-                    collided = True
-                    world.remove(b)
-                    dead = e.decrease_life(b.power)
-                    if dead:
-                        playerstatus.status.score += e.score
-                        score_sprite.score = playerstatus.status.score
-
-                        playerstatus.status.gold += e.score
-                        gold_sprite.score = playerstatus.status.gold
-                        # print(f'+{e.score} ={score}')
-                        world.remove(e)
-                    break
-            if collided: break
-            if gfw.collides_box(fighter, e):
-                world.remove(e)
-                fdead = fighter.dead()
-                if fdead:
-                    fighter.operating = False
-                    print("fighter dead")
-
-            turrets = world.objects_at(world.layer.turret)
-            for t in turrets:
-                if gfw.collides_box(t,e):
-                    if t.turret_type == 0:
-                        pass
-                    else:
-                        collided = True
-                        world.remove(e)
-                        sdead = t.dead(1)
-                        if sdead:
-                            t.to_empty_space()
+        self.playerAttack()
     def enemyAttack(self):
         enemybullets = world.objects_at(world.layer.enemybullet)
         for eb in enemybullets:
@@ -150,11 +115,67 @@ class CollisionChecker:
                         if sdead:
                             t.to_empty_space()
             if gfw.collides_box(fighter, eb):
+                if fighter.operating:
+                    world.remove(eb)
+                    fdead = fighter.dead()
+                    if fdead:
+                        fighter.operating = False
+            if gfw.collides_box(center, eb):
+                if center.dead(eb.power):
+                    # gfw.pop()
+                    print("center attacked")
                 world.remove(eb)
-                fdead = fighter.dead()
-                if fdead:
-                    fighter.operating = False
 
+
+    def playerAttack(self):
+        enemies = world.objects_at(world.layer.enemy)
+        for e in enemies:  # reversed order
+            collided = False
+            bullets = world.objects_at(world.layer.bullet)
+            for b in bullets:  # reversed order
+                if gfw.collides_box(b, e):
+                    collided = True
+                    world.remove(b)
+                    dead = e.decrease_life(b.power)
+                    if dead:
+                        playerstatus.status.score += e.score
+                        score_sprite.score = playerstatus.status.score
+
+                        playerstatus.status.gold += e.score
+                        gold_sprite.score = playerstatus.status.gold
+                        # print(f'+{e.score} ={score}')
+                        world.remove(e)
+                    break
+
+            if gfw.collides_box(fighter, e):
+                if fighter.operating:
+                    collided = True
+                    world.remove(e)
+                    fdead = fighter.dead()
+                    if fdead:
+                        fighter.operating = False
+                        print("fighter dead")
+
+            turrets = world.objects_at(world.layer.turret)
+            for t in turrets:
+                if gfw.collides_box(t, e):
+                    if t.turret_type == 0:
+                        pass
+                    else:
+                        collided = True
+                        world.remove(e)
+                        sdead = t.dead(1)
+                        if sdead:
+                            t.to_empty_space()
+
+            if gfw.collides_box(center, e):
+                collided = True
+                if center.dead(e.power):
+                    gfw.push()
+                    print("center attacked")
+                else:
+                    world.remove(e)
+            if collided: break
 
 
 

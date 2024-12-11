@@ -17,11 +17,12 @@ class Enemy(gfw.AnimSprite):
         self.elapsed_time = 0  # 적3의 행동 시간 추적
         self.fired = False     # 적3 공격 여부
         super().__init__(f'resources/monster_{enemy_type}.png', x, y, 10)
-        self.speed = -100 if enemy_type != 3 else -50
+        self.speed = -1000 if enemy_type != 3 else -50
         self.max_life = level * 100
         self.life = self.max_life
         self.score = self.max_life
         self.laser_time = 0
+        self.power = enemy_type * level
         if Enemy.gauge is None:
             Enemy.gauge = gfw.Gauge('res/gauge_fg.png', 'res/gauge_bg.png')
         self.layer_index = gfw.top().world.layer.enemy
