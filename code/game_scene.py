@@ -98,6 +98,7 @@ def getGold_scoreBtn():
 class CollisionChecker:
     def draw(self): pass
     def update(self):
+        self.enemyAttack()
         enemies = world.objects_at(world.layer.enemy)
         for e in enemies: # reversed order
             collided = False
@@ -132,9 +133,29 @@ class CollisionChecker:
                     else:
                         collided = True
                         world.remove(e)
-                        sdead = t.dead()
+                        sdead = t.dead(1)
                         if sdead:
                             t.to_empty_space()
+    def enemyAttack(self):
+        enemybullets = world.objects_at(world.layer.enemybullet)
+        for eb in enemybullets:
+            turrets = world.objects_at(world.layer.turret)
+            for t in turrets:
+                if gfw.collides_box(t, eb):
+                    if t.turret_type == 0:
+                        pass
+                    else:
+                        world.remove(eb)
+                        sdead = t.dead(eb.power)
+                        if sdead:
+                            t.to_empty_space()
+            if gfw.collides_box(fighter, eb):
+                world.remove(eb)
+                fdead = fighter.dead()
+                if fdead:
+                    fighter.operating = False
+
+
 
 
 class GameScenUI:

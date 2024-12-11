@@ -44,6 +44,6 @@ class ShieldTurret(gfw.Sprite):
         game_scene.world.append(newturret, game_scene.world.layer.turret)
         game_scene.world.remove(self, game_scene.world.layer.turret)
 
-    def dead(self):
-        self.hp -= 1
+    def dead(self, power):
+        self.hp -= power
         return self.hp <= 0
