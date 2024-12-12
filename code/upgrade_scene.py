@@ -60,6 +60,7 @@ def enter():
 def exit():
     game_scene.getGold_scoreBtn().score = playerstatus.status.gold
     playerstatus.status.roundstarttime = time.time()
+    playerstatus.status.round += 1
     world.clear()
     print('[upgrade.exit()]')
 
