@@ -5,13 +5,20 @@ import game_scene
 import playerstatus
 
 class ShieldTurret(gfw.Sprite):
+    WIDTH = 100
+    gauge = None
+
     def __init__(self, x, y):
         super().__init__('resources/shield.png', x, y)
         self.x, self.y = x,y
         self.width, self.height = self.image.w, self.image.h
 
         self.hp = 10 + playerstatus.status.getshieldturretHPUpgrade() * 2
+        self.max_hp = 10 + playerstatus.status.getshieldturretHPUpgrade() * 2
         self.turret_type = 2
+
+        if ShieldTurret.gauge is None:
+            ShieldTurret.gauge = gfw.Gauge('res/gauge_fg.png', 'res/gauge_bg.png')
 
     def handle_event(self, e):
         if e.type == SDL_MOUSEBUTTONDOWN:
@@ -27,7 +34,10 @@ class ShieldTurret(gfw.Sprite):
 
     def draw(self):
         self.image.draw(self.x, self.y,50,50)
-        pass
+        gy = self.y - self.WIDTH // 2
+        rate = self.hp / self.max_hp
+        self.gauge.draw(self.x, gy, self.WIDTH - 10, rate)
+
 
     def is_clicked(self, x, y):
         left, bottom, right, top = self.get_bb()
