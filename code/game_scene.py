@@ -131,9 +131,10 @@ class CollisionChecker:
                         fighter.operating = False
             if gfw.collides_box(center, eb):
                 if center.dead(eb.power):
-                    # gfw.pop()
+                    gfw.push(end_scene)
                     print("center attacked")
-                world.remove(eb)
+                else:
+                    world.remove(eb)
 
 
     def playerAttack(self):
@@ -163,7 +164,7 @@ class CollisionChecker:
                     fdead = fighter.dead()
                     if fdead:
                         fighter.operating = False
-                        print("fighter dead")
+                        # print("fighter dead")
 
             turrets = world.objects_at(world.layer.turret)
             for t in turrets:
@@ -181,7 +182,7 @@ class CollisionChecker:
                 collided = True
                 if center.dead(e.power):
                     gfw.push(end_scene)
-                    print("center attacked")
+                    # print("center attacked")
                 else:
                     world.remove(e)
             if collided: break
