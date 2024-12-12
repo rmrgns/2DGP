@@ -83,7 +83,12 @@
 
    ![image](https://github.com/user-attachments/assets/e97eb236-3d02-49ca-91c9-d01cf740b7f6)
 
- 6. 개발 관련 사항
+   ![image](https://github.com/user-attachments/assets/0191bda0-6deb-4791-89c5-f7c0d9dcb8ac)
+
+   ![image](https://github.com/user-attachments/assets/b1720d8b-38fc-45d8-816d-452c067e03b0)
+
+   
+6. 개발 관련 사항
 
    사용된 기술: pico2d, PyInstaller, inno Setup
 
@@ -111,14 +116,32 @@
 
    - 자원관리 시스템
 
+7. 아쉬운 것
 
+   하고 싶었지만 못 한 것들
 
-7. 커밋
+   - 업그레이드를 더 넣고싶었는데 못넣음
+  
+   - 몬스터를 다양하게 만들고 싶었지만 못했음
+  
+   - 이펙트를 넣고싶었는데 못넣음
+  
+   팔기 위해 보충할 것들
 
-   ![image](https://github.com/user-attachments/assets/0191bda0-6deb-4791-89c5-f7c0d9dcb8ac)
+   - 사운드, 밸런스조절, 다양한 전투기 이미지, 랭킹관리시스템 등
+   
+   결국 해결하지 못한 문제
 
-   ![image](https://github.com/user-attachments/assets/b1720d8b-38fc-45d8-816d-452c067e03b0)
+   - 가끔 총알이 생성되거나 사라질 때 게임이 꺼지는 문제 발생(최대한 수정해봤는데 완전히 해결됬는지는 모름)
+   
+   기말 프로젝트를 하면서 겪은 어려움
 
+   - PyInstaller쓸 때 경로문제때문에 시간을 많이 허비함
+
+8. 수업에 대한 내용
+
+   - 프로젝트할 때 프레임워크가 마련되어 있어서 진행할 때 매우 편했음
+  
 
 
 
