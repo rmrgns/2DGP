@@ -20,6 +20,7 @@ shows_object_count = False
 bgm = None
 round_time = 30
 beam = None
+
 def enter():
     playerstatus.status.roundstarttime = time.time()
 
@@ -154,6 +155,7 @@ class CollisionChecker:
         centerHP_sprite.score = commandcenter.hp
         if current_time - playerstatus.status.roundstarttime >= round_time:
             gfw.change(upgrade_scene)
+            return
         self.enemyAttack()
         self.playerAttack()
 

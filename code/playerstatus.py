@@ -1,5 +1,5 @@
 
-max_up = 5
+max_up = 10
 
 class PlayerStatus():
     def __init__(self):
