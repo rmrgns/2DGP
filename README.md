@@ -1,6 +1,8 @@
 1차발표: https://youtu.be/NDh2bC0vJQs
 
-중간발표: https://youtu.be/L4DmvTKYIP8
+2차발표: https://youtu.be/L4DmvTKYIP8
+
+3차발표: 
 
 게임 이름: 가디언 오브 테라
 
@@ -79,16 +81,45 @@
 
 5. 진행상황
 
-   2주차: 씬변환 완료, 터렛 객체 생성까지 진행
+   ![image](https://github.com/user-attachments/assets/e97eb236-3d02-49ca-91c9-d01cf740b7f6)
 
-   3주차: 메인씬 게임시작버튼 추가, 공격/방어터렛 생성 및 제거, 전투기 출동 및 제거
+ 6. 개발 관련 사항
+
+   사용된 기술: pico2d, PyInstaller, inno Setup
+
+   참고 자료: 수업시간에 사용한 예제 코드 사용
+
+   수업 내용에서 차용한 것: 드래곤플라이트 예제 코드
    
+   - 씬 전환 로직
+   
+   - 충돌 처리 로직
+   
+   - 애니메이션 스프라이트 로직
+   
+   - 객체 관리 로직
+   
+   직접 개발한 것
+   
+   - 전투기 연료 시스템
+
+   - 터렛 객체
+
+   - 업그레이드 시스템
+
+   - 사운드
+
+   - 자원관리 시스템
+
+
 
 7. 커밋
-   
-   ![image](https://github.com/user-attachments/assets/14a1a5ee-9e06-45ac-a892-9293216866fb)
 
-   ![image](https://github.com/user-attachments/assets/4d73e9bc-3030-450d-9d9c-4844fad3887e)
+   ![image](https://github.com/user-attachments/assets/0191bda0-6deb-4791-89c5-f7c0d9dcb8ac)
+
+   ![image](https://github.com/user-attachments/assets/b1720d8b-38fc-45d8-816d-452c067e03b0)
+
+
 
 
 
