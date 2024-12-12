@@ -7,6 +7,9 @@ world = gfw.World(['mainbg', 'button'])
 canvas_width = 700
 canvas_height = 800
 
+bgm = None
+click_sound = None
+
 def enter():
     world.append(gfw.VertFillBackground('resources/spacebg.png', -30), world.layer.mainbg)
 
@@ -17,6 +20,13 @@ def enter():
     startbtn = Button('resources/gamestart.png', canvas_width / 2, canvas_height * (1/4))
     world.append(startbtn,world.layer.button)
 
+    global bgm, click_sound
+    bgm = load_music('resources/Ascence.mp3')
+    bgm.set_volume(4)
+    bgm.repeat_play()
+
+    click_sound = load_wav('resources/click.wav')
+    click_sound.set_volume(16)
 
 def exit():
     world.clear()
@@ -37,6 +47,7 @@ def handle_event(e):
         x, y = e.x, get_canvas_height() - e.y
         if startbtn.is_clicked(x, y):  # 클릭된 빈 공간이나 터렛 확인
             if e.button == SDL_BUTTON_LEFT:  # 좌클릭
+                click_sound.play()
                 gfw.push(game_scene)
 
 class CollisionChecker:
