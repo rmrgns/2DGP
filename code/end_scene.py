@@ -24,6 +24,7 @@ def enter():
 
 def exit():
     world.clear()
+    playerstatus.status.__init__()
     print('[end.exit()]')
 
 def pause():
