@@ -4,7 +4,7 @@ max_up = 5
 class PlayerStatus():
     def __init__(self):
         # resource
-        self.gold = 1000
+        self.gold = 200
 
         # score
         self.score = 0
