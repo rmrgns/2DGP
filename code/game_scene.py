@@ -107,7 +107,7 @@ def handle_event(e):
             # fighter.__init__()
             fighter.operating = True
     if e.type == SDL_KEYDOWN and e.key == SDLK_e:
-        gfw.change(end_scene)
+        gfw.push(end_scene)
     if e.type == SDL_KEYDOWN and e.key == SDLK_t:
         for i, objs in enumerate(world.objects):
             print(f"Layer {i}: {objs}")
