@@ -23,7 +23,7 @@ class Enemy(gfw.AnimSprite):
             self.speed = -200
         elif enemy_type == 3:
             self.speed = -50
-        self.max_life = level * 200 + 100
+        self.max_life = (level-1) * 200 + 100
         self.life = self.max_life
         self.score = self.max_life
         self.laser_time = 0
