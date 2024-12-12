@@ -32,6 +32,8 @@ class Fighter(gfw.Sprite):
         (621, 0, 42, 80),
         (689, 0, 42, 80),
     ]
+    WIDTH = 100
+    gauge = None
 
     def __init__(self):
         super().__init__('res/fighters.png', (get_canvas_width()-200) // 2, 80)
@@ -53,7 +55,10 @@ class Fighter(gfw.Sprite):
         self.operating = False
         self.fuel = 10
         self.bfuelstatus = False
+        self.max_hp = 5 + playerstatus.status.getfighterHPUpgrade() * 2
         self.hp = 5 + playerstatus.status.getfighterHPUpgrade() * 2
+        if Fighter.gauge is None:
+            Fighter.gauge = gfw.Gauge('res/gauge_fg.png', 'res/gauge_bg.png')
 
     def handle_event(self, e):
         pair = (e.type, e.key)
@@ -101,6 +106,10 @@ class Fighter(gfw.Sprite):
             self.image.clip_draw(*self.src_rect, self.x, self.y)
             if self.laser_time < Fighter.SPARK_INTERVAL:
                 self.spark_image.draw(self.x, self.y + Fighter.SPARK_OFFSET)
+            gy = self.y - self.WIDTH // 2
+            rate = self.hp / self.max_hp
+            self.gauge.draw(self.x, gy, self.WIDTH - 10, rate)
+
     def fire(self):
         self.laser_time = 0
         world = gfw.top().world
