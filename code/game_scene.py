@@ -3,6 +3,7 @@ import gfw
 import upgrade_scene
 import end_scene
 import playerstatus
+import time
 
 from fighter import Fighter
 from enemy import EnemyGen
@@ -16,9 +17,13 @@ canvas_height = 800
 shows_bounding_box = True
 shows_object_count = False
 
-
+bgm = None
+start_time = None
 
 def enter():
+    global start_time
+    start_time = time.time()
+
     #center = world.append(gfw.Sprite('resources/center.png', 0, 0), world.layer.ui)
     #world.append(gfw.VertFillBackground('resources/stars2.png', -60), world.layer.bg)
     world.append(gfw.VertFillBackground('resources/battlebg.png', -30), world.layer.bg)
@@ -26,7 +31,10 @@ def enter():
     ui_sprite = gfw.Sprite('resources/gameui.png', canvas_width + 100, canvas_height / 2)
     world.append(ui_sprite, world.layer.ui)
 
-
+    global bgm
+    bgm = load_music('resources/SkyHigh.mp3')
+    bgm.set_volume(4)
+    bgm.repeat_play()
 
     global fighter
     fighter = Fighter()
@@ -64,6 +72,7 @@ def enter():
     world.append(center, world.layer.center)
 
 def exit():
+    bgm.stop()
     world.clear()
     print('[game.exit()]')
 

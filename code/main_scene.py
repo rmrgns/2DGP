@@ -29,6 +29,7 @@ def enter():
     click_sound.set_volume(16)
 
 def exit():
+    bgm.stop()
     world.clear()
     print('[main.exit()]')
 
