@@ -51,9 +51,11 @@ class GunTurret(gfw.Sprite):
         return (self.x - half_width, self.y - half_height,
                 self.x + half_width, self.y + half_height)
     def fire(self):
-        self.laser_time = 0
-        world = gfw.top().world
-        world.append(Bullet(self.x, self.y), world.layer.bullet)
+        if playerstatus.status.bRound:
+            self.laser_time = 0
+            world = gfw.top().world
+            new_bullet = Bullet(self.x,self.y)
+            world.append(new_bullet, world.layer.bullet)
 
     def to_empty_space(self):
         newturret = game_scene.Turret(self.x, self.y)  # 빈 공간 생성

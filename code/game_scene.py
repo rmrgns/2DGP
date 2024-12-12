@@ -102,7 +102,7 @@ def enter():
         turret = Turret(x, y)
         world.append(turret, world.layer.turret)
 
-
+    playerstatus.status.bRound = True
 
 def exit():
     bgm.stop()
@@ -154,6 +154,7 @@ class CollisionChecker:
         fuel_sprite.score = fighter.fuel
         centerHP_sprite.score = commandcenter.hp
         if current_time - playerstatus.status.roundstarttime >= round_time:
+            playerstatus.status.bRound = False
             gfw.change(upgrade_scene)
             return
         self.enemyAttack()
@@ -162,12 +163,14 @@ class CollisionChecker:
     def enemyAttack(self):
         enemybullets = world.objects_at(world.layer.enemybullet)
         for eb in enemybullets:
+            collided = False
             turrets = world.objects_at(world.layer.turret)
             for t in turrets:
                 if gfw.collides_box(t, eb):
                     if t.turret_type == 0:
                         pass
                     else:
+                        collided = True
                         world.remove(eb)
                         sdead = t.dead(eb.power)
                         if sdead:
@@ -175,18 +178,21 @@ class CollisionChecker:
                     break
             if gfw.collides_box(fighter, eb):
                 if fighter.operating:
+                    collided = True
                     world.remove(eb)
                     fdead = fighter.dead()
                     if fdead:
                         fighter.operating = False
                 break
             if gfw.collides_box(commandcenter, eb):
+                collided = True
                 if commandcenter.dead(eb.power):
                     gfw.push(end_scene)
                     print("center attacked")
                 else:
                     world.remove(eb)
                 break
+            if collided: break
 
     def playerAttack(self):
         enemies = world.objects_at(world.layer.enemy)
