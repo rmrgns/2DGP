@@ -26,7 +26,7 @@ def enter():
     global commandcenter
     commandcenter = CmdCenter(canvas_width / 2, 10)
     world.append(commandcenter, world.layer.center)
-    
+
     #world.append(gfw.VertFillBackground('resources/stars2.png', -60), world.layer.bg)
     world.append(gfw.VertFillBackground('resources/battlebg.png', -30), world.layer.bg)
 
@@ -43,18 +43,25 @@ def enter():
     world.append(fighter, world.layer.fighter)
     # world.append(MainSceneUI(), world.layer.ui)
 
+    global round_sprite
+    round_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 150, canvas_height - 100)
+    world.append(round_sprite, world.layer.ui)
+    round_sprite.score = playerstatus.status.round
+    round_text_sprite = gfw.Sprite('resources/round.png', canvas_width + 120, canvas_height - 100 + 35)
+    world.append(round_text_sprite, world.layer.ui)
+
     global score_sprite
-    score_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 150, canvas_height - 100)
+    score_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 150, canvas_height - 200)
     world.append(score_sprite, world.layer.ui)
     score_sprite.score = playerstatus.status.score
-    score_text_sprite = gfw.Sprite('resources/score.png', canvas_width + 120, canvas_height - 100 + 35)
+    score_text_sprite = gfw.Sprite('resources/score.png', canvas_width + 120, canvas_height - 200 + 35)
     world.append(score_text_sprite, world.layer.ui)
 
     global gold_sprite
-    gold_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 150, canvas_height - 200)
+    gold_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 150, canvas_height - 300)
     world.append(gold_sprite, world.layer.ui)
     gold_sprite.score = playerstatus.status.gold
-    gold_text_sprite = gfw.Sprite('resources/gold.png', canvas_width + 110, canvas_height - 200 + 50)
+    gold_text_sprite = gfw.Sprite('resources/gold.png', canvas_width + 110, canvas_height - 300 + 50)
     world.append(gold_text_sprite, world.layer.ui)
 
     global roundtime_sprite
