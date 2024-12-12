@@ -2,6 +2,8 @@ from pico2d import *
 import gfw
 import game_scene
 from button import Button
+import os
+os.environ['PYSDL2_DLL_PATH'] = os.path.abspath('./dlls')
 
 world = gfw.World(['mainbg', 'button'])
 canvas_width = 700
@@ -21,11 +23,11 @@ def enter():
     world.append(startbtn,world.layer.button)
 
     global bgm, click_sound
-    bgm = load_music('resources/Ascence.mp3')
+    bgm = load_music(gfw.resource_path('resources/Ascence.mp3'))
     bgm.set_volume(4)
     bgm.repeat_play()
 
-    click_sound = load_wav('resources/click.wav')
+    click_sound = load_wav(gfw.resource_path('resources/click.wav'))
     click_sound.set_volume(16)
 
 def exit():

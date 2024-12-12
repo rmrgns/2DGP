@@ -24,7 +24,7 @@ def enter():
     playerstatus.status.roundstarttime = time.time()
 
     global beam
-    beam = load_wav('resources/beam.wav')
+    beam = load_wav(gfw.resource_path('resources/beam.wav'))
     beam.set_volume(16)
 
     global commandcenter
@@ -38,7 +38,7 @@ def enter():
     world.append(ui_sprite, world.layer.ui)
 
     global bgm
-    bgm = load_music('resources/SkyHigh.mp3')
+    bgm = load_music(gfw.resource_path('resources/SkyHigh.mp3'))
     bgm.set_volume(4)
     bgm.repeat_play()
 

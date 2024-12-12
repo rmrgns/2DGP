@@ -1,6 +1,8 @@
 from pico2d import *
 
 import time
+import os
+import sys
 
 _running = True
 _stack = []
@@ -108,3 +110,9 @@ def _load_system_font():
             break
         except:
             pass
+
+def resource_path(relative_path):
+    """ PyInstaller 실행 파일 내부에서 리소스 경로를 반환 """
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join(os.path.abspath("."), relative_path)

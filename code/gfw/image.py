@@ -1,4 +1,5 @@
 from pico2d import *
+from gfw import resource_path
 
 _images = {}
 
@@ -7,7 +8,7 @@ def load(file):
     if file in _images:
         return _images[file]
 
-    image = load_image(file)
+    image = load_image(resource_path(file))
     _images[file] = image
     return image
 
