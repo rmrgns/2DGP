@@ -18,7 +18,7 @@ class ShieldTurret(gfw.Sprite):
         self.turret_type = 2
 
         if ShieldTurret.gauge is None:
-            ShieldTurret.gauge = gfw.Gauge('res/gauge_fg.png', 'res/gauge_bg.png')
+            ShieldTurret.gauge = gfw.Gauge('resources/gauge_fg.png', 'resources/gauge_bg.png')
 
     def handle_event(self, e):
         if e.type == SDL_MOUSEBUTTONDOWN:

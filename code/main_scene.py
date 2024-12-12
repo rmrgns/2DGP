@@ -58,7 +58,7 @@ class CollisionChecker:
 
 class GameScenUI:
     def __init__(self):
-        self.font = load_font('res/lucon.ttf', 50)
+        self.font = load_font('resources/lucon.ttf', 50)
         self.pos = (canvas_width - 320, canvas_height - 40)
     def update(self): pass
     def draw(self):

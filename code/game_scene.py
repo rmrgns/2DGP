@@ -48,42 +48,42 @@ def enter():
     # world.append(MainSceneUI(), world.layer.ui)
 
     global round_sprite
-    round_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 150, canvas_height - 100)
+    round_sprite = gfw.ScoreSprite('resources/number_24x32.png', canvas_width + 150, canvas_height - 100)
     world.append(round_sprite, world.layer.ui)
     round_sprite.score = playerstatus.status.round
     round_text_sprite = gfw.Sprite('resources/round.png', canvas_width + 120, canvas_height - 100 + 35)
     world.append(round_text_sprite, world.layer.ui)
 
     global score_sprite
-    score_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 150, canvas_height - 200)
+    score_sprite = gfw.ScoreSprite('resources/number_24x32.png', canvas_width + 150, canvas_height - 200)
     world.append(score_sprite, world.layer.ui)
     score_sprite.score = playerstatus.status.score
     score_text_sprite = gfw.Sprite('resources/score.png', canvas_width + 120, canvas_height - 200 + 35)
     world.append(score_text_sprite, world.layer.ui)
 
     global gold_sprite
-    gold_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 150, canvas_height - 300)
+    gold_sprite = gfw.ScoreSprite('resources/number_24x32.png', canvas_width + 150, canvas_height - 300)
     world.append(gold_sprite, world.layer.ui)
     gold_sprite.score = playerstatus.status.gold
     gold_text_sprite = gfw.Sprite('resources/gold.png', canvas_width + 110, canvas_height - 300 + 50)
     world.append(gold_text_sprite, world.layer.ui)
 
     global roundtime_sprite
-    roundtime_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 150, canvas_height - 500)
+    roundtime_sprite = gfw.ScoreSprite('resources/number_24x32.png', canvas_width + 150, canvas_height - 500)
     world.append(roundtime_sprite, world.layer.ui)
     roundtime_sprite.score = round_time
     roundtime_text_sprite = gfw.Sprite('resources/roundtime.png', canvas_width + 60, canvas_height - 500)
     world.append(roundtime_text_sprite, world.layer.ui)
 
     global fuel_sprite
-    fuel_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 150, canvas_height - 600)
+    fuel_sprite = gfw.ScoreSprite('resources/number_24x32.png', canvas_width + 150, canvas_height - 600)
     world.append(fuel_sprite, world.layer.ui)
     fuel_sprite.score = fighter.fuel
     fuel_text_sprite = gfw.Sprite('resources/fuel.png', canvas_width + 60, canvas_height - 600)
     world.append(fuel_text_sprite, world.layer.ui)
 
     global centerHP_sprite
-    centerHP_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 150, canvas_height - 700)
+    centerHP_sprite = gfw.ScoreSprite('resources/number_24x32.png', canvas_width + 150, canvas_height - 700)
     world.append(centerHP_sprite, world.layer.ui)
     centerHP_sprite.score = commandcenter.hp
     centerHP_text_sprite = gfw.Sprite('resources/centerhp.png', canvas_width + 60, canvas_height - 700)
@@ -170,18 +170,21 @@ class CollisionChecker:
                         sdead = t.dead(eb.power)
                         if sdead:
                             t.to_empty_space()
+                    break
             if gfw.collides_box(fighter, eb):
                 if fighter.operating:
                     world.remove(eb)
                     fdead = fighter.dead()
                     if fdead:
                         fighter.operating = False
+                break
             if gfw.collides_box(commandcenter, eb):
                 if commandcenter.dead(eb.power):
                     gfw.push(end_scene)
                     print("center attacked")
                 else:
                     world.remove(eb)
+                break
 
     def playerAttack(self):
         enemies = world.objects_at(world.layer.enemy)
@@ -211,6 +214,7 @@ class CollisionChecker:
                     if fdead:
                         fighter.operating = False
                         # print("fighter dead")
+                break
 
             turrets = world.objects_at(world.layer.turret)
             for t in turrets:
@@ -223,6 +227,7 @@ class CollisionChecker:
                         sdead = t.dead(1)
                         if sdead:
                             t.to_empty_space()
+                    break
 
             if gfw.collides_box(commandcenter, e):
                 collided = True
@@ -231,13 +236,14 @@ class CollisionChecker:
                     # print("center attacked")
                 else:
                     world.remove(e)
+                break
             if collided: break
 
 
 
 class GameScenUI:
     def __init__(self):
-        self.font = load_font('res/lucon.ttf', 50)
+        self.font = load_font('resources/lucon.ttf', 50)
         self.pos = (canvas_width - 320, canvas_height - 40)
     def update(self): pass
     def draw(self):

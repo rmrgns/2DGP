@@ -11,12 +11,15 @@ canvas_height = 800
 def enter():
     world.append(gfw.VertFillBackground('resources/spacebg.png', -30), world.layer.bg)
 
+    gameover_sprite = gfw.Sprite('resources/gameover.png', canvas_width / 2, canvas_height - 200)
+    world.append(gameover_sprite, world.layer.ui)
+
     global endbtn
-    endbtn = Button('resources/gameover.png', canvas_width / 2, canvas_height * (1 / 4))
+    endbtn = Button('resources/exit.png', canvas_width / 2, canvas_height * (1 / 4))
     world.append(endbtn, world.layer.button)
 
     global score_sprite
-    score_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width / 2, canvas_height - 400)
+    score_sprite = gfw.ScoreSprite('resources/number_24x32.png', canvas_width / 2, canvas_height - 400)
     world.append(score_sprite, world.layer.ui)
     score_sprite.score = playerstatus.status.score
     score_text_sprite = gfw.Sprite('resources/score.png', canvas_width / 2 - 30, canvas_height - 400 + 45)
@@ -49,7 +52,7 @@ class CollisionChecker:
 
 class GameScenUI:
     def __init__(self):
-        self.font = load_font('res/lucon.ttf', 50)
+        self.font = load_font('resources/lucon.ttf', 50)
         self.pos = (canvas_width - 320, canvas_height - 40)
     def update(self): pass
     def draw(self):

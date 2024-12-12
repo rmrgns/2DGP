@@ -23,13 +23,13 @@ class Enemy(gfw.AnimSprite):
             self.speed = -200
         elif enemy_type == 3:
             self.speed = -50
-        self.max_life = (level-1) * 200 + 100
+        self.max_life = (level-1) * 100 + 100
         self.life = self.max_life
         self.score = self.max_life
         self.laser_time = 0
         self.power = int(enemy_type * level / 2) + 1
         if Enemy.gauge is None:
-            Enemy.gauge = gfw.Gauge('res/gauge_fg.png', 'res/gauge_bg.png')
+            Enemy.gauge = gfw.Gauge('resources/gauge_fg.png', 'resources/gauge_bg.png')
         self.layer_index = gfw.top().world.layer.enemy
 
     def update(self):

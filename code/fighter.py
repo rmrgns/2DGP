@@ -38,7 +38,7 @@ class Fighter(gfw.Sprite):
     gauge = None
 
     def __init__(self):
-        super().__init__('res/fighters.png', (get_canvas_width()-200) // 2, 80)
+        super().__init__('resources/fighters.png', (get_canvas_width()-200) // 2, 80)
         self.dx = 0
         self.dy = 0
         self.speed = 320 # 320 pixels per second
@@ -51,7 +51,7 @@ class Fighter(gfw.Sprite):
         self.min_y = half_height
         self.max_y = get_canvas_height() - half_height
         self.laser_time = 0
-        self.spark_image = gfw.image.load('res/laser_0.png')
+        self.spark_image = gfw.image.load('resources/laser_0.png')
         self.roll_time = 0
         self.src_rect = Fighter.IMAGE_RECTS[5] # 0~10 의 11 개 중 5번이 가운데이다.
         self.operating = False
@@ -60,7 +60,7 @@ class Fighter(gfw.Sprite):
         self.max_hp = 5 + playerstatus.status.getfighterHPUpgrade() * 2
         self.hp = 5 + playerstatus.status.getfighterHPUpgrade() * 2
         if Fighter.gauge is None:
-            Fighter.gauge = gfw.Gauge('res/gauge_fg.png', 'res/gauge_bg.png')
+            Fighter.gauge = gfw.Gauge('resources/gauge_fg.png', 'resources/gauge_bg.png')
 
     def handle_event(self, e):
         pair = (e.type, e.key)
@@ -133,7 +133,7 @@ class Fighter(gfw.Sprite):
         return self.hp <= 0
 class Bullet(gfw.Sprite):
     def __init__(self, x, y):
-        super().__init__('res/laser_1.png', x, y)
+        super().__init__('resources/laser_1.png', x, y)
         self.speed = 400 # 400 pixels per second
         self.max_y = get_canvas_height() + self.image.h
         self.power = 40 + playerstatus.status.getfighterATKUpgrade() * 20

@@ -14,7 +14,7 @@ class GunTurret(gfw.Sprite):
         self.width , self.height = self.image.w, self.image.h
         self.hp = 1
         self.laser_time = 0
-        self.spark_image = gfw.image.load('res/laser_0.png')
+        self.spark_image = gfw.image.load('resources/laser_0.png')
         self.shot = 0
         self.turret_type = 1
 
@@ -66,7 +66,7 @@ class GunTurret(gfw.Sprite):
 
 class Bullet(gfw.Sprite):
     def __init__(self, x, y):
-        super().__init__('res/laser_1.png', x, y)
+        super().__init__('resources/laser_1.png', x, y)
         self.speed = 400 # 400 pixels per second
         self.max_y = get_canvas_height() + self.image.h
         self.power = 40 + playerstatus.status.getgunturretATKUpgrade() * 20
