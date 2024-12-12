@@ -32,6 +32,7 @@ class GunTurret(gfw.Sprite):
         self.laser_time += gfw.frame_time
         if self.laser_time >= GunTurret.LASER_INTERVAL:
             self.fire()
+            game_scene.beamSound()
         pass
 
     def draw(self):

@@ -2,6 +2,8 @@ from pico2d import *
 import gfw
 import playerstatus
 import time
+import game_scene
+
 class Fighter(gfw.Sprite):
     KEY_MAP = {
         (SDL_KEYDOWN, SDLK_a):  -1,
@@ -121,6 +123,7 @@ class Fighter(gfw.Sprite):
         self.laser_time = 0
         world = gfw.top().world
         world.append(Bullet(self.x, self.y), world.layer.bullet)
+        game_scene.beamSound()
 
     def get_bb(self):
         return self.x - 30, self.y - 32, self.x + 30, self.y + 28

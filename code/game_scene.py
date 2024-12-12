@@ -19,9 +19,13 @@ shows_object_count = False
 
 bgm = None
 round_time = 30
-
+beam = None
 def enter():
     playerstatus.status.roundstarttime = time.time()
+
+    global beam
+    beam = load_wav('resources/beam.wav')
+    beam.set_volume(16)
 
     global commandcenter
     commandcenter = CmdCenter(canvas_width / 2, 10)
@@ -137,6 +141,9 @@ def handle_event(e):
 def getGold_scoreBtn():
     global gold_sprite
     return gold_sprite
+
+def beamSound():
+    beam.play()
 
 class CollisionChecker:
     def draw(self): pass
