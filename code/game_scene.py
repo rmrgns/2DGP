@@ -23,7 +23,10 @@ round_time = 30
 def enter():
     playerstatus.status.roundstarttime = time.time()
 
-    #center = world.append(gfw.Sprite('resources/center.png', 0, 0), world.layer.ui)
+    global commandcenter
+    commandcenter = CmdCenter(canvas_width / 2, 10)
+    world.append(commandcenter, world.layer.center)
+    
     #world.append(gfw.VertFillBackground('resources/stars2.png', -60), world.layer.bg)
     world.append(gfw.VertFillBackground('resources/battlebg.png', -30), world.layer.bg)
 
@@ -68,6 +71,13 @@ def enter():
     fuel_text_sprite = gfw.Sprite('resources/fuel.png', canvas_width + 60, canvas_height - 600)
     world.append(fuel_text_sprite, world.layer.ui)
 
+    global centerHP_sprite
+    centerHP_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 150, canvas_height - 700)
+    world.append(centerHP_sprite, world.layer.ui)
+    centerHP_sprite.score = commandcenter.hp
+    centerHP_text_sprite = gfw.Sprite('resources/centerhp.png', canvas_width + 60, canvas_height - 700)
+    world.append(centerHP_text_sprite, world.layer.ui)
+
     world.append(EnemyGen(), world.layer.controller)
     world.append(CollisionChecker(), world.layer.controller)
 
@@ -80,9 +90,7 @@ def enter():
         turret = Turret(x, y)
         world.append(turret, world.layer.turret)
 
-    global center
-    center = CmdCenter(canvas_width / 2, 10)
-    world.append(center, world.layer.center)
+
 
 def exit():
     bgm.stop()
@@ -129,6 +137,7 @@ class CollisionChecker:
         current_time = time.time()
         roundtime_sprite.score = int(round_time - (current_time - playerstatus.status.roundstarttime))
         fuel_sprite.score = fighter.fuel
+        centerHP_sprite.score = commandcenter.hp
         if current_time - playerstatus.status.roundstarttime >= round_time:
             gfw.change(upgrade_scene)
         self.enemyAttack()
@@ -153,8 +162,8 @@ class CollisionChecker:
                     fdead = fighter.dead()
                     if fdead:
                         fighter.operating = False
-            if gfw.collides_box(center, eb):
-                if center.dead(eb.power):
+            if gfw.collides_box(commandcenter, eb):
+                if commandcenter.dead(eb.power):
                     gfw.push(end_scene)
                     print("center attacked")
                 else:
@@ -201,9 +210,9 @@ class CollisionChecker:
                         if sdead:
                             t.to_empty_space()
 
-            if gfw.collides_box(center, e):
+            if gfw.collides_box(commandcenter, e):
                 collided = True
-                if center.dead(e.power):
+                if commandcenter.dead(e.power):
                     gfw.push(end_scene)
                     # print("center attacked")
                 else:
