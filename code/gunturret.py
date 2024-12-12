@@ -5,7 +5,7 @@ import game_scene
 import playerstatus
 
 class GunTurret(gfw.Sprite):
-    LASER_INTERVAL = 0.25
+    LASER_INTERVAL = 0.5
     SPARK_INTERVAL = 0.05
     SPARK_OFFSET = 28
     def __init__(self, x, y):
