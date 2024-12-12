@@ -1,3 +1,5 @@
+import time
+
 from pico2d import *
 import gfw
 
@@ -57,6 +59,7 @@ def enter():
 
 def exit():
     game_scene.getGold_scoreBtn().score = playerstatus.status.gold
+    playerstatus.status.roundstarttime = time.time()
     world.clear()
     print('[upgrade.exit()]')
 
@@ -70,9 +73,6 @@ def handle_event(e):
     global fighterHPUpgradeBtn
     global shieldTurretHPUpgradeBtn
     global gunTurretATKUpgradeBtn
-
-    if e.type == SDL_KEYDOWN:
-        gfw.change(game_scene)
 
     if e.type == SDL_MOUSEBUTTONDOWN:
         x, y = e.x, get_canvas_height() - e.y
@@ -102,8 +102,8 @@ def handle_event(e):
 
         if gameStartBtn.is_clicked(x, y):
             if e.button == SDL_BUTTON_LEFT:  # 좌클릭
-                #gfw.change(game_scene)
-                gfw.pop()
+                gfw.change(game_scene)
+                # gfw.pop()
 
 
 class CollisionChecker:

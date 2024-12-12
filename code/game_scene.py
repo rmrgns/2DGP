@@ -18,11 +18,10 @@ shows_bounding_box = True
 shows_object_count = False
 
 bgm = None
-start_time = None
+round_time = 30
 
 def enter():
-    global start_time
-    start_time = time.time()
+    playerstatus.status.roundstarttime = time.time()
 
     #center = world.append(gfw.Sprite('resources/center.png', 0, 0), world.layer.ui)
     #world.append(gfw.VertFillBackground('resources/stars2.png', -60), world.layer.bg)
@@ -54,6 +53,15 @@ def enter():
     gold_sprite.score = playerstatus.status.gold
     gold_text_sprite = gfw.Sprite('resources/gold.png', canvas_width + 110, canvas_height - 200 + 50)
     world.append(gold_text_sprite, world.layer.ui)
+
+    global roundtime_sprite
+    roundtime_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 150, canvas_height - 500)
+    world.append(roundtime_sprite, world.layer.ui)
+    roundtime_sprite.score = round_time
+    roundtime_text_sprite = gfw.Sprite('resources/roundtime.png', canvas_width + 60, canvas_height - 500)
+    world.append(roundtime_text_sprite, world.layer.ui)
+
+
 
     world.append(EnemyGen(), world.layer.controller)
     world.append(CollisionChecker(), world.layer.controller)
@@ -93,9 +101,6 @@ def handle_event(e):
             # fighter_count = True
             fighter.__init__()
             fighter.operating = True
-
-    if e.type == SDL_KEYDOWN and e.key == SDLK_q:
-        gfw.push(upgrade_scene)
     if e.type == SDL_KEYDOWN and e.key == SDLK_e:
         gfw.change(end_scene)
     if e.type == SDL_KEYDOWN and e.key == SDLK_t:
@@ -113,12 +118,16 @@ def getGold_scoreBtn():
     global gold_sprite
     return gold_sprite
 
-
 class CollisionChecker:
     def draw(self): pass
     def update(self):
+        current_time = time.time()
+        roundtime_sprite.score = int(round_time - (current_time - playerstatus.status.roundstarttime))
+        if current_time - playerstatus.status.roundstarttime >= round_time:
+            gfw.change(upgrade_scene)
         self.enemyAttack()
         self.playerAttack()
+
     def enemyAttack(self):
         enemybullets = world.objects_at(world.layer.enemybullet)
         for eb in enemybullets:
@@ -144,7 +153,6 @@ class CollisionChecker:
                     print("center attacked")
                 else:
                     world.remove(eb)
-
 
     def playerAttack(self):
         enemies = world.objects_at(world.layer.enemy)

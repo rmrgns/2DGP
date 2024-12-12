@@ -16,6 +16,7 @@ class PlayerStatus():
         self.shieldturretHPUpgrade = 0
         self.gunturretATKUpgrade = 0
 
+        self.roundstarttime = None
     # method
     def getfighterHPUpgrade(self):
         return self.fighterHPUpgrade
