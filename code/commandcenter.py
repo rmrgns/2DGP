@@ -7,7 +7,7 @@ class CmdCenter(gfw.Sprite):
         super().__init__('resources/center.png', x, y)
         self.x, self.y = x,y
         self.width, self.height = self.image.w, self.image.h
-        self.hp = 1
+        self.hp = 10
 
 
     def update(self):
