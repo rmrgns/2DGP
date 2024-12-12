@@ -1,7 +1,7 @@
 from pico2d import *
 import random
 import gfw
-
+import playerstatus
 import game_scene
 class Enemy(gfw.AnimSprite):
     LASER_INTERVAL = 2
@@ -23,11 +23,11 @@ class Enemy(gfw.AnimSprite):
             self.speed = -200
         elif enemy_type == 3:
             self.speed = -50
-        self.max_life = level * 100
+        self.max_life = level * 50 + 100
         self.life = self.max_life
         self.score = self.max_life
         self.laser_time = 0
-        self.power = enemy_type * level
+        self.power = int(enemy_type * level / 2) + 1
         if Enemy.gauge is None:
             Enemy.gauge = gfw.Gauge('res/gauge_fg.png', 'res/gauge_bg.png')
         self.layer_index = gfw.top().world.layer.enemy
@@ -98,7 +98,7 @@ class EnemyGen:
                 enemy_type = 3
 
             # 적 생성 및 추가
-            level = clamp(1, (self.wave_index + 18) // 10, Enemy.MAX_LEVEL)
+            level = playerstatus.status.round
             gfw.top().world.append(Enemy(i, level, enemy_type))
 
         self.time -= self.GEN_INTERVAL
