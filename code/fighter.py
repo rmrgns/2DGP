@@ -1,7 +1,7 @@
 from pico2d import *
 import gfw
 import playerstatus
-
+import time
 class Fighter(gfw.Sprite):
     KEY_MAP = {
         (SDL_KEYDOWN, SDLK_a):  -1,
@@ -54,7 +54,7 @@ class Fighter(gfw.Sprite):
         self.src_rect = Fighter.IMAGE_RECTS[5] # 0~10 의 11 개 중 5번이 가운데이다.
         self.operating = False
         self.fuel = 10
-        self.bfuelstatus = False
+        self.last_fuel_update_time = time.time()
         self.max_hp = 5 + playerstatus.status.getfighterHPUpgrade() * 2
         self.hp = 5 + playerstatus.status.getfighterHPUpgrade() * 2
         if Fighter.gauge is None:
@@ -80,6 +80,13 @@ class Fighter(gfw.Sprite):
             if self.laser_time >= Fighter.LASER_INTERVAL:
                 self.fire()
             self.update_roll()
+            current_time = time.time()
+            if current_time - self.last_fuel_update_time >= 1:  # 1초 경과 확인
+                self.fuel -= 1  # 연료 소모
+                self.last_fuel_update_time = current_time  # 시간 갱신
+            if self.fuel <= 0:
+                self.operating = False
+
 
     def update_roll(self):
         roll_dir = self.dx

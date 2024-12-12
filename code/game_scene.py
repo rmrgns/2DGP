@@ -61,7 +61,12 @@ def enter():
     roundtime_text_sprite = gfw.Sprite('resources/roundtime.png', canvas_width + 60, canvas_height - 500)
     world.append(roundtime_text_sprite, world.layer.ui)
 
-
+    global fuel_sprite
+    fuel_sprite = gfw.ScoreSprite('res/number_24x32.png', canvas_width + 150, canvas_height - 600)
+    world.append(fuel_sprite, world.layer.ui)
+    fuel_sprite.score = fighter.fuel
+    fuel_text_sprite = gfw.Sprite('resources/fuel.png', canvas_width + 60, canvas_height - 600)
+    world.append(fuel_text_sprite, world.layer.ui)
 
     world.append(EnemyGen(), world.layer.controller)
     world.append(CollisionChecker(), world.layer.controller)
@@ -95,11 +100,11 @@ def handle_event(e):
     if e.type == SDL_KEYDOWN and e.key == SDLK_1:
         print(world.objects)
     if e.type == SDL_KEYDOWN and e.key == SDLK_r:
-        if fighter.operating == False:
+        if fighter.operating == False and fighter.fuel == 10:
             # fighter = Fighter()
             # world.append(fighter, world.layer.fighter)
             # fighter_count = True
-            fighter.__init__()
+            # fighter.__init__()
             fighter.operating = True
     if e.type == SDL_KEYDOWN and e.key == SDLK_e:
         gfw.change(end_scene)
@@ -123,6 +128,7 @@ class CollisionChecker:
     def update(self):
         current_time = time.time()
         roundtime_sprite.score = int(round_time - (current_time - playerstatus.status.roundstarttime))
+        fuel_sprite.score = fighter.fuel
         if current_time - playerstatus.status.roundstarttime >= round_time:
             gfw.change(upgrade_scene)
         self.enemyAttack()
