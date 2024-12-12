@@ -4,14 +4,14 @@ import playerstatus
 
 class Fighter(gfw.Sprite):
     KEY_MAP = {
-        (SDL_KEYDOWN, SDLK_LEFT):  -1,
-        (SDL_KEYDOWN, SDLK_RIGHT):  1,
-        (SDL_KEYUP, SDLK_LEFT):     1,
-        (SDL_KEYUP, SDLK_RIGHT):   -1,
-        (SDL_KEYDOWN, SDLK_DOWN): -1,
-        (SDL_KEYDOWN, SDLK_UP): 1,
-        (SDL_KEYUP, SDLK_DOWN): 1,
-        (SDL_KEYUP, SDLK_UP): -1,
+        (SDL_KEYDOWN, SDLK_a):  -1,
+        (SDL_KEYDOWN, SDLK_d):  1,
+        (SDL_KEYUP, SDLK_a):     1,
+        (SDL_KEYUP, SDLK_d):   -1,
+        (SDL_KEYDOWN, SDLK_s): -1,
+        (SDL_KEYDOWN, SDLK_w): 1,
+        (SDL_KEYUP, SDLK_s): 1,
+        (SDL_KEYUP, SDLK_w): -1,
         (SDL_KEYDOWN, SDLK_SPACE): 1,
         (SDL_KEYUP, SDLK_SPACE): 0,
     }
@@ -58,9 +58,9 @@ class Fighter(gfw.Sprite):
     def handle_event(self, e):
         pair = (e.type, e.key)
         if pair in Fighter.KEY_MAP:
-            if e.key == SDLK_LEFT or e.key == SDLK_RIGHT:
+            if e.key == SDLK_a or e.key == SDLK_d:
                 self.dx += Fighter.KEY_MAP[pair]
-            elif e.key == SDLK_UP or e.key == SDLK_DOWN:
+            elif e.key == SDLK_w or e.key == SDLK_s:
                 self.dy += Fighter.KEY_MAP[pair]
             # elif e.key == SDLK_SPACE:
             #     self.shot = Fighter.KEY_MAP[pair]
@@ -75,6 +75,7 @@ class Fighter(gfw.Sprite):
             if self.laser_time >= Fighter.LASER_INTERVAL:
                 self.fire()
             self.update_roll()
+
     def update_roll(self):
         roll_dir = self.dx
         if roll_dir == 0: # 현재 비행기가 움직이고 있지 않은데

@@ -77,7 +77,7 @@ def handle_event(e):
     global fighter
     if e.type == SDL_KEYDOWN and e.key == SDLK_1:
         print(world.objects)
-    if e.type == SDL_KEYDOWN and e.key == SDLK_s:
+    if e.type == SDL_KEYDOWN and e.key == SDLK_r:
         if fighter.operating == False:
             # fighter = Fighter()
             # world.append(fighter, world.layer.fighter)
